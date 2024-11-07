@@ -30,8 +30,9 @@
 #define LOW  0 // Low value
 
 // General purpose Input Output code
-typedef struct GPIO
+class GPIO
 {
+public:
     static void setup(uint32 base)
     {
         GPIO_BASE &= 0x00000000;
@@ -65,7 +66,7 @@ typedef struct GPIO
             default:   *GPIO_OUTPUT &=  0x00000000; return;
         }
     }
-} GPIO;
+};
 
 // Waits for a specified time (in milliseconds)
 static void delay(uint32 millis)
