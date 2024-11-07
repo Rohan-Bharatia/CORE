@@ -32,6 +32,12 @@
 // General purpose Input Output code
 typedef struct GPIO
 {
+    static void setup(uint32 base)
+    {
+        GPIO_BASE &= 0x00000000;
+        GPIO_BASE |= base;
+        return;
+    }
     // Sets the direction of a GPIO pin
     static void setPin(uint32 pin, uint8 direction)
     {
@@ -65,7 +71,6 @@ typedef struct GPIO
 static void delay(uint32 millis)
 {
     for (volatile uint32 i = 0; i < millis; i++);
-
     return;
 }
 

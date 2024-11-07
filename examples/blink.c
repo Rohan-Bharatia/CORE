@@ -4,6 +4,8 @@
 
 int main(void)
 {
+    GPIO::setup(0x50000000); // Example base
+
     GPIO::setPin(LED_PIN, OUTPUT);
 
     while (1)
