@@ -56,7 +56,7 @@ public:
     // Spins a DC motor at a speed in a direction
     void spin(uint32 speed, int8 direction)
     {
-        if (ignore)
+        if (!ignore)
             GPIO::write(port, speed * ((-1 <= direction <= 1 ? direction : 0)));
         return;
     }
@@ -64,7 +64,7 @@ public:
     // // Spins a DC motor at a speed in a direction for a duration of time (in ms)
     void spinFor(uint32 speed, int8 direction, uint32 duration)
     {
-        if (ignore)
+        if (!ignore)
         {
             GPIO::write(port, speed * ((-1 <= direction <= 1 ? direction : 0)));
             delay(duration);
@@ -75,12 +75,14 @@ public:
 #ifdef SERVO_MOTOR
     // Sets the degree bounds for a servo motor
     void setBounds(uint16 min, uint16 max) : min(min), max(max)
-    {}
+    {
+        return;
+    }
 
     // Sets the position of a servo motor in degrees
-    void set(double degrees)
+    void setPosition(double degrees)
     {
-        if (ignore)
+        if (!ignore)
             GPIO::write(port, PWM_MIN_PULSE_WIDTH + ((min <= degrees <= max ? degrees : (min + max) / 2) / 180f) * (PWM_MAX_PULSE_WIDTH - PWM_MIN_PULSE_WIDTH));
         return;
     }
