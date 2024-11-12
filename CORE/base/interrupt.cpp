@@ -13,8 +13,8 @@
 
 #pragma once
 
-#ifndef _CORE_INTERRUPT_cpp_
-    #define _CORE_INTERRUPT_cpp_
+#ifndef _BASE_INTERRUPT_cpp_
+    #define _BASE_INTERRUPT_cpp_
 
 #include "prerequisites.c"
 
@@ -48,4 +48,4 @@ inline void noInterrupts(void)
     return;
 }
 
-#endif // _CORE_INTERRUPT_cpp_
+#endif // _BASE_INTERRUPT_cpp_

@@ -13,8 +13,8 @@
 
 #pragma once
 
-#ifndef _CORE_STRING_cpp_
-    #define _CORE_STRING_cpp_
+#ifndef _BASE_STRING_cpp_
+    #define _BASE_STRING_cpp_
 
 #include <cstring>
 #include <sstream>
@@ -205,4 +205,4 @@ class String : public std::string
     }
 };
 
-#endif // _CORE_STRING_cpp_
+#endif // _BASE_STRING_cpp_

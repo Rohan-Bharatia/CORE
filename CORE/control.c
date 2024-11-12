@@ -13,22 +13,10 @@
 
 #pragma once
 
-#ifndef _CORE_c_
-    #define _CORE_c_
+#ifndef _CONTROL_c_
+    #define _CONTROL_c_
 
 // Source files
-#include "CORE/base.c"
-#include "CORE/control.c"
+#include "base/PID.cpp"
 
-// Entry point
-int main(int argc, char* argv)
-{
-    startTimeMillis = millis();
-    startTimeMicros = micros();
-
-    setup();
-    for (/* int i = 0 */; /* i < INFINITY */; /* ++i */)
-        loop();
-}
-
-#endif // _CORE_c_
+#endif // _CONTROL_c_

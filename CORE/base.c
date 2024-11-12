@@ -13,22 +13,16 @@
 
 #pragma once
 
-#ifndef _CORE_c_
-    #define _CORE_c_
+#ifndef _BASE_c_
+    #define _BASE_c_
 
 // Source files
-#include "CORE/base.c"
-#include "CORE/control.c"
+#include "base/prerequisites.c"
+#include "base/string.cpp"
+#include "base/serial.cpp"
+#include "base/misc.cpp"
+#include "base/time.cpp"
+#include "base/io.cpp"
+#include "base/interrupt.cpp"
 
-// Entry point
-int main(int argc, char* argv)
-{
-    startTimeMillis = millis();
-    startTimeMicros = micros();
-
-    setup();
-    for (/* int i = 0 */; /* i < INFINITY */; /* ++i */)
-        loop();
-}
-
-#endif // _CORE_c_
+#endif // _BASE_c_

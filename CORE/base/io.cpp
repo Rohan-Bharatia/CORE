@@ -13,8 +13,8 @@
 
 #pragma once
 
-#ifndef _CORE_IO_cpp_
-    #define _CORE_IO_cpp_
+#ifndef _BASE_IO_cpp_
+    #define _BASE_IO_cpp_
 
 #include "prerequisites.c"
 #include "misc.cpp"
@@ -289,4 +289,4 @@ void attachSquare(const uint8_t pin, const unsigned hz = 1, const float duty = 0
     }
 }
 
-#endif // _CORE_IO_cpp_
+#endif // _BASE_IO_cpp_

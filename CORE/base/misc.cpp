@@ -13,8 +13,8 @@
 
 #pragma once
 
-#ifndef _CORE_MISC_cpp_
-    #define _CORE_MISC_cpp_
+#ifndef _BASE_MISC_cpp_
+    #define _BASE_MISC_cpp_
 
 #include <iostream>
 
@@ -91,4 +91,4 @@ inline void randomSeed(unsigned long seed)
     return;
 }
 
-#endif // _CORE_MISC_cpp_
+#endif // _BASE_MISC_cpp_

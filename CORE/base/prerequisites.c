@@ -13,8 +13,8 @@
 
 #pragma once
 
-#ifndef _CORE_PREREQUISITES_c_
-    #define _CORE_PREREQUISITES_c_
+#ifndef _BASE_PREREQUISITES_c_
+    #define _BASE_PREREQUISITES_c_
 
 #include <stdint.h>
 #include <math.h>
@@ -226,4 +226,4 @@ void isPinDefined(const uint8_t pin, const PinType = DIGITAL)
     exit(0);
 }
 
-#endif // _CORE_PREREQUISITES_c_
+#endif // _BASE_PREREQUISITES_c_

@@ -13,8 +13,8 @@
 
 #pragma once
 
-#ifndef _CORE_SERIAL_cpp_
-    #define _CORE_SERIAL_cpp_
+#ifndef _BASE_SERIAL_cpp_
+    #define _BASE_SERIAL_cpp_
 
 #include "prerequisites.c"
 #include "string.cpp"
@@ -267,4 +267,4 @@ Wire Wire2;
 
 
 
-#endif // _CORE_SERIAL_cpp_
+#endif // _BASE_SERIAL_cpp_

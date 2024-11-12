@@ -13,8 +13,8 @@
 
 #pragma once
 
-#ifndef _CORE_TIME_cpp_
-    #define _CORE_TIME_cpp_
+#ifndef _BASE_TIME_cpp_
+    #define _BASE_TIME_cpp_
 
 #include <chrono>
 #include <thread>
@@ -41,4 +41,4 @@ unsigned long millis(void)
     return (unsigned long)std::chrono::duration_cast<std::chrono::microseconds>(duration).count() - startTimeMicros;
 }
 
-#endif // _CORE_TIME_cpp_
+#endif // _BASE_TIME_cpp_
