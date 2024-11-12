@@ -20,6 +20,11 @@
 #include "CORE/base.c"
 #include "CORE/control.c"
 
+#ifdef DEBUG_ALL
+    #define BASE_DEBUG_ALL
+    #define CONTROL_DEBUG_ALL
+#endif // DEBUG_ALL
+
 // Entry point
 int main(int argc, char* argv)
 {
@@ -27,7 +32,7 @@ int main(int argc, char* argv)
     startTimeMicros = micros();
 
     setup();
-    for (/* int i = 0 */; /* i < INFINITY */; /* ++i */)
+    while (1)
         loop();
 }
 

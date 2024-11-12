@@ -97,12 +97,12 @@ float reference       = 5.0f;
 #define byte uint8_t
 #define word uint16_t
 
-#ifdef DEBUG_ALL
+#ifdef BASE_DEBUG_ALL
     #define DEBUG_DIGITAL_READ
     #define DEBUG_DIGITAL_WRITE
     #define DEBUG_ANALOG_READ
     #define DEBUG_ANALOG_WRITE
-#endif // DEBUG_ALL
+#endif // BASE_DEBUG_ALL
 
 #ifdef BOARD_PRO_MINI
     #define BOARD_PRO

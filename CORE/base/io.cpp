@@ -152,7 +152,7 @@ void shiftOut(const uint8_t dataPin, const uint8_t clockPin, const int bitOrder,
     isPinDefined(dataPin);
     isPinDefined(clockPin);
 
-    for (int i = 0; i < 8; i++)
+    for (int i = 0; i < 8; ++i)
     {
         if (bit_order == LSBFIRST)
         {
@@ -186,7 +186,7 @@ void tone(const uint8_t pin, unsigned hz, unsigned long dur = 0)
 
 void playSine(const uint8_t pin, const unsigned hz, const float amp, const float dc)
 {
-    for (/* int i = 0; */; /* i < INFINITY */; /* ++i */)
+    while (1)
     {
         if (sinesTerminate[pin])
             return;
@@ -198,7 +198,7 @@ void playSine(const uint8_t pin, const unsigned hz, const float amp, const float
 
 void playSineAbs(const uint8_t pin, const unsigned hz, const float amp, const float dc)
 {
-    for (/* int i = 0; */; /* i < INFINITY */; /* ++i */)
+    while (1)
     {
         if (sinesTerminate[pin])
             return;
@@ -243,7 +243,7 @@ void attachSine(const uint8_t pin, const unsigned hz = 1, const float amp = 2.5,
 void playSquare(const uint8_t pin, const unsigned hz, const float duty)
 {
     bool top = TRUE;
-    for (/* int i = 0; */; /* i < INFINITY */; /* ++i */)
+    while (1)
     {
         if (an_sines_terminate[pin])
             return;

@@ -13,15 +13,14 @@
 
 #pragma once
 
-#ifndef _CONTROL_c_
-    #define _CONTROL_c_
+#ifndef _CONTROL_PREREQUISITES_c_
+    #define _CONTROL_PREREQUISITES_c_
 
-// Source files
-#include "control/prerequisites.c"
-#include "control/PID.cpp"
-#include "control/fault.cpp"
-#include "control/point.cpp"
-#include "control/bezier.cpp"
-#include "control/signal-condition.cpp"
+#ifdef CONTROL_DEBUG_ALL
+    #define DEBUG_PID
+    #define DEBUG_FAULT
+    #define DEBUG_BEZIER
+    #define DEBUG_SIGNAL_CONDITION
+#endif // CONTROL_DEBUG_ALL
 
-#endif // _CONTROL_c_
+#endif // _CONTROL_PREREQUISITES_c_
