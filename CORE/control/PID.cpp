@@ -13,8 +13,8 @@
 
 #pragma once
 
-#ifndef _ROBOTICS_PID_c_
-    #define _ROBOTICS_PID_c_
+#ifndef _ROBOTICS_PID_cpp_
+    #define _ROBOTICS_PID_cpp_
 
 #include <algorithm>
 
@@ -71,4 +71,4 @@ private:
     PIDController* pid;
 };
 
-#endif // _BASE_CORE_c_
+#endif // _ROBOTICS_PID_cpp_
