@@ -167,7 +167,7 @@ enum AnalogPin
     A5          = 19,
 };
 #else // (NOT) defined(TEENSY_41) - defined(BOARD_NANO) || defined(BOARD_PRO) - defined(BOARD_UNO)
-    #error Please define a board!
+    #define CREATE_NEW_BOARD_ANALOG(...) enum AnalogPin { __VA_ARGS__ }
 #endif // defined(TEENSY_41) - defined(BOARD_NANO) || defined(BOARD_PRO) - defined(BOARD_UNO)
 
 // Entry points
@@ -204,7 +204,6 @@ float pinVoltage[MAX_PINS] = { 0 };
 #define isSpace(thisChar)            (isspace(thisChar))
 #define isUpperCase(thisChar)        (isupper(thisChar))
 #define isWhitespace(thisChar)       (isspace(thisChar))
-
 
 // Bits and Bytes
 #define bit(b)                         (1UL << (b))
