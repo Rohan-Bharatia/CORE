@@ -13,10 +13,13 @@
 
 #pragma once
 
-#ifndef _ROBOTICS_PID_cpp_
-    #define _ROBOTICS_PID_cpp_
+#ifndef _CONTROL_PID_cpp_
+    #define _CONTROL_PID_cpp_
 
 #include <algorithm>
+#include <iostream>
+
+#include "base.c"
 
 struct PIDController
 {
@@ -42,6 +45,10 @@ public:
     void setSetpoint(double setpoint)
     {
         pid->setpoint = setpoint;
+    #ifdef DEBUG_PID
+        printTimestamp();
+        std::cout << "Write setpoint: " << pid->setpoint << "\n";
+    #endif // DEBUG_PID
         return;
     }
 
@@ -50,6 +57,14 @@ public:
         pid->kP = kP;
         pid->kI = kI;
         pid->kD = kD;
+    #ifdef DEBUG_PID
+        printTimestamp();
+        std::cout << "Write proportional gain: " << pid->kP << "\n";
+        printTimestamp();
+        std::cout << "Write integral gain: " << pid->kI << "\n";
+        printTimestamp();
+        std::cout << "Write derivative gain: " << pid->kD << "\n";
+    #endif // DEBUG_PID
         return;
     }
 
@@ -71,4 +86,4 @@ private:
     PIDController* pid;
 };
 
-#endif // _ROBOTICS_PID_cpp_
+#endif // _CONTROL_PID_cpp_
