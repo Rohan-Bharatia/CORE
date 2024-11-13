@@ -16,6 +16,9 @@
 #ifndef _SUBSYSTEM_PREREQUISITES_c_
     #define _SUBSYSTEM_PREREQUISITES_c_
 
+#define LEFT -1
+#define RIGHT 1
+
 #ifdef SUBSYSTEM_DEBUG_ALL
     #define DEBUG_MOTOR
 #endif // SUBSYSTEM_DEBUG_ALL

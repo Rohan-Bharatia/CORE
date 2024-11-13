@@ -18,6 +18,8 @@
 
 // Source files
 #include "subsystem/prerequisites.c"
-#include "subsystem/motor.cpp"
+#include "subsystem/motors/dc.cpp"
+#include "subsystem/motors/servo.cpp"
+#include "subsystem/motors/stepper.cpp"
 
 #endif // _SUBSYSTEM_c_
