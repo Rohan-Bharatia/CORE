@@ -245,7 +245,7 @@ void playSquare(const uint8_t pin, const unsigned hz, const float duty)
     bool top = TRUE;
     while (1)
     {
-        if (an_sines_terminate[pin])
+        if (sinesTerminate[pin])
             return;
 
         float sine     = sin((millis() / (1000.0f / (2.0f * PI))) * hz);
@@ -254,7 +254,7 @@ void playSquare(const uint8_t pin, const unsigned hz, const float duty)
 
         if (new_top != top)
         {
-            an_set_voltage(pin, new_top * 5.0f);
+            setVoltage(pin, new_top * 5.0f);
             top = new_top;
         }
     }

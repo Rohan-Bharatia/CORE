@@ -258,12 +258,12 @@ public:
     void onRequest(void(*handler)(void));
 };
 
-#ifdef AN_TEENSY_41
+#ifdef BOARD_TEENSY_41
 Serial Serial1;
 Serial Serial2;
 Wire Wire1;
 Wire Wire2;
-#endif // AN_TEENSY_41
+#endif // BOARD_TEENSY_41
 
 
 

@@ -13,29 +13,11 @@
 
 #pragma once
 
-#ifndef _CORE_c_
-    #define _CORE_c_
+#ifndef _SUBSYSTEM_PREREQUISITES_c_
+    #define _SUBSYSTEM_PREREQUISITES_c_
 
-// Source files
-#include "CORE/base.c"
-#include "CORE/control.c"
-#include "CORE/subsystem.c"
+#ifdef SUBSYSTEM_DEBUG_ALL
+    #define DEBUG_MOTOR
+#endif // SUBSYSTEM_DEBUG_ALL
 
-#ifdef DEBUG_ALL
-    #define BASE_DEBUG_ALL
-    #define CONTROL_DEBUG_ALL
-    #define SUBSYSTEM_DEBUG_ALL
-#endif // DEBUG_ALL
-
-// Entry point
-int main(int argc, char* argv)
-{
-    startTimeMillis = millis();
-    startTimeMicros = micros();
-
-    setup();
-    while (1)
-        loop();
-}
-
-#endif // _CORE_c_
+#endif // _SUBSYSTEM_PREREQUISITES_c_

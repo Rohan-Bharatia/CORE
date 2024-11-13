@@ -109,7 +109,7 @@ float reference       = 5.0f;
 #endif // BOARD_PRO_MINI
 
 // Arduino Teensy
-#if defined(TEENSY_41)
+#if defined(BOARD_TEENSY_41)
     #define MAX_PINS 42
 
 enum AnalogPin
@@ -166,9 +166,9 @@ enum AnalogPin
     A4          = 18,
     A5          = 19,
 };
-#else // (NOT) defined(TEENSY_41) - defined(BOARD_NANO) || defined(BOARD_PRO) - defined(BOARD_UNO)
+#else // (NOT) defined(BOARD_TEENSY_41) - defined(BOARD_NANO) || defined(BOARD_PRO) - defined(BOARD_UNO)
     #define CREATE_NEW_BOARD_ANALOG(...) enum AnalogPin { __VA_ARGS__ }
-#endif // defined(TEENSY_41) - defined(BOARD_NANO) || defined(BOARD_PRO) - defined(BOARD_UNO)
+#endif // defined(BOARD_TEENSY_41) - defined(BOARD_NANO) || defined(BOARD_PRO) - defined(BOARD_UNO)
 
 // Entry points
 void setup(void);
@@ -217,7 +217,7 @@ float pinVoltage[MAX_PINS] = { 0 };
 
 void isPinDefined(const uint8_t pin, const PinType = DIGITAL)
 {
-    if (pin > AN_MAX_PINS && pin != AREF)
+    if (pin > MAX_PINS && pin != AREF)
     {
         std::cout << "ERROR: PIN " << std::to_string(pin) << " IS NOT DEFINED\n";
         exit(1);

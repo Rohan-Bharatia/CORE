@@ -1,5 +1,5 @@
 #define BOARD_UNO
-#include <CORE.c>
+#include <.../CORE.c>
 
 void setup(void)
 {

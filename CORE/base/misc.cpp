@@ -40,20 +40,20 @@ void setVoltage(const uint8_t pin, const float voltage)
         {
         case CHANGE:
             if (is_on != turn_on)
-                an_ints[pin].intpointer();
+                ints[pin].intpointer();
             break;
         case RISING:
             if (!is_on && turn_on)
-                an_ints[pin].intpointer();
+                ints[pin].intpointer();
             break;
         case FALLING:
             if (is_on && !turn_on)
-                an_ints[pin].intpointer();
+                ints[pin].intpointer();
             break;
         }
     }
     
-    an_pin_voltage[pin] = voltage;
+    pinVoltage[pin] = voltage;
     return;
 }
 
