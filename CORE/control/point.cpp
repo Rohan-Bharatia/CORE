@@ -22,7 +22,9 @@ class Point
 public:
     T x;
     T y;
+#ifdef USE_3D_POINT
     T z;
+#endif // USE_3D_POINT
 
     Point(void) = default;
     Point(T x, T y, T z) : x(x), y(y), z(z)
@@ -32,6 +34,12 @@ public:
 
     static const Point<T> ZERO((T)0, (T)0, (T)0);
 };
+
+// Setter operator
+template <typename T> Point<T> = (Point<T> a, Point<T> b)
+{
+    return Point<T>(b.x, b.y, b.z);
+}
 
 // Relational operators
 template<typename T> bool operator == (Point<T> a, Point<T> b)

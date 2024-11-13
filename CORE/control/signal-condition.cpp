@@ -22,7 +22,7 @@
 #include "prerequisites.c"
 #include "base.c"
 
-namespace SignalCondition
+namespace signalCondition
 {
     double lowPassFilter(double input, double previous, double alpha)
     {
@@ -72,6 +72,6 @@ namespace SignalCondition
         
         return input;
     }
-} // namespace SignalCondition
+} // namespace signalCondition
 
 #endif // _CONTROL_SIGNAL_CONDITION_cpp_

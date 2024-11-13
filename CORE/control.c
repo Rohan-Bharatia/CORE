@@ -19,9 +19,12 @@
 // Source files
 #include "control/prerequisites.c"
 #include "control/PID.cpp"
-#include "control/fault.cpp"
+#include "control/safety.cpp"
 #include "control/point.cpp"
 #include "control/bezier.cpp"
 #include "control/signal-condition.cpp"
+#include "control/estimation.cpp"
+#include "control/trajectory.cpp"
+#include "control/controllers.cpp"
 
 #endif // _CONTROL_c_

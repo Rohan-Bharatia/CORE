@@ -28,12 +28,13 @@ template<typename T = double>
 class Bezier
 {
 public:
+    Bezier(void) = default;
     Bezier(std::vector<Point<T>>& controlPoints) : controlPoints(controlPoints)
     {
         return;
     }
 
-    Point<T> calculate(double t) const
+    Point<T> calculate(T t) const
     {
         if (controlPoints.empty())
             return Point<T>::ZERO;
@@ -53,7 +54,7 @@ public:
 
         for (int i = 0; i < resolution; ++i)
         {
-            double t = (double)i / resolution;
+            T t = (T)i / resolution;
             curve.push_back(controlPoints.empty() ? Point<T>::ZERO : deCasteljau(controlPoints, t));
         }
 
@@ -68,7 +69,7 @@ public:
 private:
     std::vector<Point> controlPoints;
 
-    Point<T> deCasteljau(const std::vector<Point<T>>& points, float t) const
+    Point<T> deCasteljau(const std::vector<Point<T>>& points, T t) const
     {
         if (points.size() == 1)
             return points[0];
@@ -77,9 +78,9 @@ private:
 
         for (int i = 0; i < points.size() - 1; ++i)
         {
-            float x = (1 - t) * points[i].x + t * points[i + 1].x;
-            float y = (1 - t) * points[i].y + t * points[i + 1].y;
-            float z = (1 - t) * points[i].z + t * points[i + 1].z;
+            T x = (1 - t) * points[i].x + t * points[i + 1].x;
+            T y = (1 - t) * points[i].y + t * points[i + 1].y;
+            T z = (1 - t) * points[i].z + t * points[i + 1].z;
 
             next.emplace_back(Point{x, y, z});
         }
