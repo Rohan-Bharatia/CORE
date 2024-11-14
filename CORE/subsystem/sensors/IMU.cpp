@@ -27,10 +27,14 @@ class IMU
 {
 public:
     IMU(void) = default;
-    IMU(double gyro, double accel) : gyro(gyro), accel(accel)
+    IMU(const uint8_t gyroPin, const uint8_t accelPin) : gyroPin(gyroPin), accelPin(accelPin)
     {
-        g *= gyro;
-        a *= accel;
+        pinMode(gyroPin, INPUT);
+        pinMode(accelPin, INPUT);
+        
+        g *= analogRead(gyroPin);
+        a *= analogRead(accelPin);
+        return;
     }
 
     void reset(void)
@@ -39,13 +43,13 @@ public:
         printTimestamp();
         std::cout << "Reseting IMU\n";
     #endif // DEBUG_IMU
-        velocity = PointD(0, 0, 0);
-        pos      = PointD(0, 0, 0);
+        velocity = PointD::ZERO;
+        pos      = PointD::ZERO;
     }
 
     double getPitch(void) const
     {
-        double p = atan2(ay, sqrt(a.x * a.x + a.z * a.z)) * (180 / PI);
+        double p = atan2(a.y, sqrt(a.x * a.x + a.z * a.z)) * (180 / PI);
     #ifdef DEBUG_IMU
         printTimestamp();
         std::cout << "Reading IMU pitch: " << p << "\n";
@@ -65,7 +69,7 @@ public:
 
     double getRoll(void) const
     {
-        double r = atan2(ax, sqrt(a.y * a.y + a.z * a.z)) * (180 / PI);
+        double r = atan2(a.x, sqrt(a.y * a.y + a.z * a.z)) * (180 / PI);
     #ifdef DEBUG_IMU
         printTimestamp();
         std::cout << "Reading IMU roll: " << r << "\n";
@@ -86,9 +90,12 @@ public:
     }
 
 private:
-    double gyro, accel;
-    PointD g, a;
-    PointD velocity, pos;
+    const uint8_t gyroPin;
+    const uint8_t accelPin;
+    PointD g;
+    PointD a;
+    PointD velocity
+    PointD pos;
 };
 
 #endif // _SUBSYSTEM_IMU_cpp_
