@@ -45,7 +45,7 @@ void digitalWrite(const uint8_t pin, const int value)
 
 void pinMode(const uint8_t pin, const pinMode mode)
 {
-    if(mode == INPUT_PULLUP)
+    if (mode == INPUT_PULLUP)
         pinVoltage[pin] = 5.0f;
     return;
 }
@@ -65,7 +65,7 @@ uint16_t analogRead(const uint8_t pin)
 
 void analogReference(Reference type)
 {
-    switch(type)
+    switch (type)
     {
     case DEFAULT:
         reference = 5.0;
@@ -203,7 +203,7 @@ void playSineAbs(const uint8_t pin, const unsigned hz, const float amp, const fl
         if (sinesTerminate[pin])
             return;
         
-        if(isAbs)
+        if (isAbs)
             setVoltage(pin, abs(sin(((float)millis() / (1000.0f / (2.0f * PI))) * hz) * amp + dc));
         else
             setVoltage(pin, sin(((float)millis() / (1000.0f / (2.0f * PI))) * hz) * amp + dc);
@@ -231,7 +231,7 @@ void attachSine(const uint8_t pin, const unsigned hz = 1, const float amp = 2.5,
     sinesTerminate[pin] = FALSE;
     std::thread sine;
 
-    if(isAbs)
+    if (isAbs)
         sine = std::thread(playSineAbs, pin, hz, amp, dc);
     else
         sine = std::thread(playSine, pin, hz, amp, dc);

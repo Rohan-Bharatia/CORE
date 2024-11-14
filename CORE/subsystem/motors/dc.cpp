@@ -34,7 +34,7 @@ namespace motor
             return;
         }
 
-        void speed(double speed) : speed(std::clamp(speed, 0, 255))
+        void setSpeed(double speed) : speed(std::clamp(speed, 0, 255))
         {
         #ifdef DEBUG_MOTOR
             printTimestamp();
@@ -42,7 +42,7 @@ namespace motor
         #endif // DEBUG_MOTOR
             return;
         }
-        void direction(int8_t direction) : direction(std::clamp(direction, -1, 1))
+        void setDirection(int8_t direction) : direction(std::clamp(direction, -1, 1))
         {
         #ifdef DEBUG_MOTOR
             printTimestamp();
@@ -62,7 +62,7 @@ namespace motor
             return;
         }
 
-        void spinFor(const unsigned long ms)
+        void spinfor (const unsigned long ms)
         {
         #ifdef DEBUG_MOTOR
             printTimestamp();

@@ -107,7 +107,7 @@ int sensorTimeoutFault(FaultStatus* status, const uint8_t pin, unsigned long* ms
 
     FaultStatus* status = { FALSE, FAULT_NONE };
     
-    if(digitalRead(pin) == HIGH)
+    if (digitalRead(pin) == HIGH)
         ms = millis();
 
     if (millis() - *ms > threshold)
@@ -177,7 +177,7 @@ public:
     }
     void addSample(std::vector<T> xs)
     {
-        for(T x : xs)
+        for (T x : xs)
             samples.push_back(x);
 
         if (samples.size() > max)
@@ -203,7 +203,7 @@ public:
 
     int isUnhealthy(T threshold) const
     {
-        if(average() > threshold)
+        if (average() > threshold)
         {
         #ifdef DEBUG_HEALTH
             printTimestamp();

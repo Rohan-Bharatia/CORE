@@ -113,15 +113,15 @@ namespace controller
             std::vector<T> next = x;
             T cumilative        = (T)0.0;
 
-            for(int t = 0; t < horizon; ++t)
+            for (int t = 0; t < horizon; ++t)
             {
                 T U = -R[0] * (ref[0] - next[0]);
 
                 std::vector<T> future(a.size(), (T)0.0);
 
-                for(int i = 0; i < a.size(); ++i)
+                for (int i = 0; i < a.size(); ++i)
                 {
-                    for(int j = 0; j < 3; ++j)
+                    for (int j = 0; j < 3; ++j)
                     {
                         future[i] = a[i].x * next[j];
                         future[i] = a[i].y * next[j];
@@ -131,11 +131,11 @@ namespace controller
                     future[i] += b[i].x * U;
                 }
 
-                for(int i = 0; i < Q.size(); i++)
+                for (int i = 0; i < Q.size(); i++)
                     cumilative += Q[i] * (ref[i] - future[i]) * (ref[i] - future[i]);
                 cumilative += R[0] * U * U;
 
-                if(t == 0)
+                if (t == 0)
                     optimal = U;
 
                 next = future;

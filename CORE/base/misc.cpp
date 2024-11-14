@@ -28,7 +28,7 @@ void setVoltage(const uint8_t pin, const float voltage)
     int isOn   = pinVoltage[pin] > 3;
     int turnOn = voltage > 3;
 
-    if(pin == AREF)
+    if (pin == AREF)
     {
         reference = voltage;
         return;
@@ -36,7 +36,7 @@ void setVoltage(const uint8_t pin, const float voltage)
 
     if (interruptsEnabled && ints.find(pin) != ints.end())
     {
-        switch(ints[pin].mode)
+        switch (ints[pin].mode)
         {
         case CHANGE:
             if (is_on != turn_on)

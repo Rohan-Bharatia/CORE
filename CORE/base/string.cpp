@@ -199,8 +199,8 @@ class String : public std::string
 
     void trim()
     {
-        erase(begin(), std::find_if(begin(), end(), [](char ch) { return !std::isspace(ch); }));
-        erase(std::find_if(rbegin(), rend(), [](char ch) { return !std::isspace(ch); }).base(), end());
+        erase(begin(), std::find_if (begin(), end(), [](char ch) { return !std::isspace(ch); }));
+        erase(std::find_if (rbegin(), rend(), [](char ch) { return !std::isspace(ch); }).base(), end());
         return;
     }
 };

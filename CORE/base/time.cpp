@@ -23,11 +23,11 @@
 
 inline void delay(const unsigned long milliseconds)
 {
-    std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
+    std::this_thread::sleep_for (std::chrono::milliseconds(milliseconds));
 }
 inline void delayMicroseconds(const unsigned long microseconds)
 {
-    std::this_thread::sleep_for(std::chrono::microseconds(microseconds));
+    std::this_thread::sleep_for (std::chrono::microseconds(microseconds));
 }
 
 unsigned long micros(void)

@@ -30,8 +30,8 @@ namespace motor
         Servo(void) = default;
         Servo(const uint8_t enablePin, const uint8_t pwmPin) enablePin(enablePin), pwmPin(pwmPin)
         {
-            pinMode(enablePin, OUTPUT);
-            pinMode(pwmPin, OUTPUT);
+            pinMode(enablePin,      OUTPUT);
+            pinMode(pwmPin,         OUTPUT);
             digitalWrite(enablePin, HIGH);
             return;
         }

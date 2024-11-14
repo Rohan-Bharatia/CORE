@@ -25,6 +25,10 @@
     #define BASE_DEBUG_ALL
     #define CONTROL_DEBUG_ALL
     #define SUBSYSTEM_DEBUG_ALL
+#elif DEBUG_NONE
+    #define BASE_DEBUG_NONE
+    #define CONTROL_DEBUG_NONE
+    #define SUBSYSTEM_DEBUG_NONE
 #endif // DEBUG_ALL
 
 // Entry point

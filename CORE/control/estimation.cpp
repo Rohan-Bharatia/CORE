@@ -71,7 +71,7 @@ namespace filter
 
         double update(std::vector<double> data, double dt)
         {
-            if(data.size() <= 1)
+            if (data.size() <= 1)
                 estimate += data[0];
             else
             {

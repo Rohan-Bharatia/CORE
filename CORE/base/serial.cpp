@@ -101,7 +101,7 @@ public:
     size_t readBytes(char* buffer, const unsigned length, const int until = FALSE, const char terminator = '\0')
     {
             size_t count = 0;
-            for(/* size_t count = 0 */; count < length; ++count)
+            for (/* size_t count = 0 */; count < length; ++count)
             {
                     uint8_t c = read();
                     if (c < 0 || (until && c == terminator))
@@ -224,7 +224,7 @@ private:
 
     inline void remove_digit(int isFloat)
     {
-        while(available())
+        while (available())
         {
             char c = peek();
 

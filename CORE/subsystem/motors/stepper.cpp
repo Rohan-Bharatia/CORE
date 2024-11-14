@@ -31,14 +31,14 @@ namespace motor
         Stepper(const uint8_t enablePin, const uint8_t stepPin, const uint8_t dirPin, int maxSteps) : 
             enablePin(enablePin), stepPin(stepPin), dirPin(dirPin), maxSteps(maxSteps)
         {
-            pinMode(enablePin, OUTPUT);
-            pinMode(stepPin, OUTPUT);
-            pinMode(dirPin, OUTPUT);
+            pinMode(enablePin,      OUTPUT);
+            pinMode(stepPin,        OUTPUT);
+            pinMode(dirPin,         OUTPUT);
             digitalWrite(enablePin, HIGH);
             return;
         }
 
-        void speed(double steps) : sps(std::clamp(steps, 1, 1000))
+        void setSpeed(double steps) : sps(std::clamp(steps, 1, 1000))
         {
         #ifdef DEBUG_MOTOR
             printTimestamp();
@@ -46,7 +46,7 @@ namespace motor
         #endif // DEBUG_MOTOR
             return;
         }
-        void direction(int direction)
+        void setDirection(int direction)
         {
         #ifdef DEBUG_MOTOR
             printTimestamp();
@@ -74,12 +74,12 @@ namespace motor
             printTimestamp();
             std::cout << "Going to angle on stepper motor: " << degrees << "°\n";
         #endif // DEBUG_MOTOR
-            spinFor(degrees / (360 / maxSteps));
+            spinfor (degrees / (360 / maxSteps));
         }
 
-        void stepFor(uint64_t steps)
+        void stepfor (uint64_t steps)
         {
-            for(int i = 0; i < steps; ++i)
+            for (int i = 0; i < steps; ++i)
                 step();
         #ifdef DEBUG_MOTOR
             printTimestamp();

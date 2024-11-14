@@ -28,6 +28,18 @@
     #define DEBUG_MODEL_PREDICTIVE
     #define DEBUG_LIMITER
     #define DEBUG_HEALTH
+#elif CONTROL_DEBUG_NONE
+    #undef DEBUG_PID
+    #undef DEBUG_FAULT
+    #undef DEBUG_BEZIER
+    #undef DEBUG_SIGNAL_CONDITION
+    #undef DEBUG_ESTIMATION
+    #undef DEBUG_TRAJECTORY
+    #undef DEBUG_FEED_FORWARD
+    #undef DEBUG_STATE_SPACE
+    #undef DEBUG_MODEL_PREDICTIVE
+    #undef DEBUG_LIMITER
+    #undef DEBUG_HEALTH
 #endif // CONTROL_DEBUG_ALL
 
 #endif // _CONTROL_PREREQUISITES_c_

@@ -102,6 +102,11 @@ float reference       = 5.0f;
     #define DEBUG_DIGITAL_WRITE
     #define DEBUG_ANALOG_READ
     #define DEBUG_ANALOG_WRITE
+#elif BASE_DEBUG_NONE
+    #undef DEBUG_DIGITAL_READ
+    #undef DEBUG_DIGITAL_WRITE
+    #undef DEBUG_ANALOG_READ
+    #undef DEBUG_ANALOG_WRITE
 #endif // BASE_DEBUG_ALL
 
 #ifdef BOARD_PRO_MINI

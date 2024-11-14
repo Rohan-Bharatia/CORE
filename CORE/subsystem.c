@@ -21,5 +21,10 @@
 #include "subsystem/motors/dc.cpp"
 #include "subsystem/motors/servo.cpp"
 #include "subsystem/motors/stepper.cpp"
+#include "subsystem/sensors/IMU.cpp"
+#include "subsystem/sensors/thermal.cpp"
+#include "subsystem/sensors/humidity.cpp"
+#include "subsystem/sensors/barometer.cpp"
+#include "subsystem/sensor/ultrasonic.cpp"
 
 #endif // _SUBSYSTEM_c_
