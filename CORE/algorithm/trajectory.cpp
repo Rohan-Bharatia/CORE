@@ -21,7 +21,7 @@
 #include <vector>
 
 #include "prerequisites.c"
-#include "point.cpp"
+#include "control.c"
 #include "base.c"
 
 template<typename T = double>

@@ -21,7 +21,7 @@
 #include <iostream>
 
 #include "prerequisites.c"
-#include "point.cpp"
+#include "control.c"
 #include "base.c"
 
 template<typename T = double>
@@ -49,7 +49,6 @@ public:
 
     std::vector<Point<T>> generate(uint16_t resolution = 100) const
     {
-
         std::vector<Point<T>> curve;
 
         for (int i = 0; i < resolution; ++i)

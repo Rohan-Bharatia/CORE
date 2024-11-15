@@ -22,9 +22,7 @@ class Point
 public:
     T x;
     T y;
-#ifdef USE_3D_POINT
     T z;
-#endif // USE_3D_POINT
 
     Point(void) = default;
     Point(T x, T y, T z) : x(x), y(y), z(z)
@@ -32,7 +30,8 @@ public:
         return;
     }
 
-    static const Point<T> ZERO((T)0, (T)0, (T)0);
+    static const Point<T> ZERO((T)0.0, (T)0.0, (T)0.0);
+    static const Point<T> ONE ((T)1.0, (T)1.0, (T)1.0);
 };
 
 // Setter operator

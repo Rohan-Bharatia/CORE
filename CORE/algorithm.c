@@ -13,19 +13,15 @@
 
 #pragma once
 
-#ifndef _SUBSYSTEM_c_
-    #define _SUBSYSTEM_c_
+#ifndef _ALGORITHM_c_
+    #define _ALGORITHM_c_
 
 // Source files
-#include "subsystem/prerequisites.c"
-#include "subsystem/motors/dc.cpp"
-#include "subsystem/motors/servo.cpp"
-#include "subsystem/motors/stepper.cpp"
-#include "subsystem/sensors/IMU.cpp"
-#include "subsystem/sensors/thermal.cpp"
-#include "subsystem/sensors/humidity.cpp"
-#include "subsystem/sensors/barometer.cpp"
-#include "subsystem/sensor/ultrasonic.cpp"
-#include "subsystem/sensor/odometer.cpp"
+#include "algorithm/prerequisites.c"
+#include "algorithm/bezier.cpp"
+#include "algorithm/trajectory.cpp"
+#include "algorithm/a*.cpp"
+#include "algorithm/drivetrain.cpp"
+#include "algorithm/maps.cpp"
 
-#endif // _SUBSYSTEM_c_
+#endif // _ALGORITHM_c_

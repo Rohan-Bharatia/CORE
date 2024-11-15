@@ -17,8 +17,10 @@
     #define _SUBSYSTEM_IMU_cpp_
 
 #include <cmath>
+#include <iostream>
 
 #include "prerequisites.c"
+#include "control.c"
 #include "base.c"
 
 #define TIME_STEP 0.01

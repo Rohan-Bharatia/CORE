@@ -52,7 +52,7 @@ namespace motor
             printTimestamp();
             std::cout << "Write stepper motor direction: " (direction > 0 ? "right\n" : "left\n");
         #endif // DEBUG_MOTOR
-            digitalWrite(dirPin, direction > 0 ? HIGH, LOW);
+            digitalWrite(dirPin, direction > 0 ? HIGH : LOW);
         }
 
         void step(void)
@@ -74,10 +74,10 @@ namespace motor
             printTimestamp();
             std::cout << "Going to angle on stepper motor: " << degrees << "°\n";
         #endif // DEBUG_MOTOR
-            spinfor (degrees / (360 / maxSteps));
+            spinFor(degrees / (360 / maxSteps));
         }
 
-        void stepfor (uint64_t steps)
+        void stepFor(uint64_t steps)
         {
             for (int i = 0; i < steps; ++i)
                 step();
@@ -96,6 +96,11 @@ namespace motor
         #endif // DEBUG_MOTOR
             digitalWrite(enablePin, LOW);
             return;
+        }
+
+        int getMax(void)
+        {
+            return maxSteps;
         }
 
     private:

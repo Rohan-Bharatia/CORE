@@ -23,72 +23,35 @@
 
 namespace filter
 {
-    class Kalman
+    double kalman(double Q, double R, double P, double state, double measurement)
     {
-    public:
-        Kalman(void) = default;
-        Kalman(double process, double measurement, double error) : Q(process), R(measurement), P(error)
-        {
-            return;
-        }
+        P      += Q;
+        float K = P / (P + R);
+        state  += K * (measurement - state);
+        P      *= (1 - K);
+    #ifdef DEBUG_ESTIMATION
+        printTimestamp();
+        std::cout << "Get kalman estimation: " << state << "\n";
+    #endif // DEBUG_ESTIMATION
+        return state;
+    }
 
-        void setInitialState(double is)
-        {
-            state = is;
-        #ifdef DEBUG_ESTIMATION
-            printTimestamp();
-            std::cout << "Write state: " << state << "\n";
-        #endif // DEBUG_ESTIMATION
-            return;
-        }
-
-        double estimate(double measurement)
-        {
-            P      += Q;
-            float K = P / (P + R);
-            state  += K * (measurement - state);
-            P      *= (1 - K);
-        #ifdef DEBUG_ESTIMATION
-            printTimestamp();
-            std::cout << "Get estimation: " << state << "\n";
-        #endif // DEBUG_ESTIMATION
-            return state;
-        }
-
-    private:
-        double Q, R, P;
-        double state;
-    };
-
-    class Complimentary
+    double complimentary(double alpha, std::vector<double> data, double dt)
     {
-    public:
-        Complimentary(void) = default;
-        Complimentary(double alpha) : alpha(alpha), estimate(0.0)
+        double estimate = 0.0;
+        if (data.size() <= 1)
+            estimate += data[0];
+        else
         {
-            return;
+            for (int i = 0; i < data.size() - 1; ++i)
+                estimate += alpha * (data[i] * dt) + (1.0 - alpha) * data[i + 1];
         }
-
-        double update(std::vector<double> data, double dt)
-        {
-            if (data.size() <= 1)
-                estimate += data[0];
-            else
-            {
-                for (int i = 0; i < data.size() - 1; ++i)
-                    estimate += alpha * (data[i] * dt) + (1.0 - alpha) * data[i + 1];
-            }
-        #ifdef DEBUG_ESTIMATION
-            printTimestamp();
-            std::cout << "Get estimate: " << estimate << "\n";
-        #endif // DEBUG_ESTIMATION
-            return estimate;
-        }
-
-    private:
-        float alpha;
-        float estimate;
-    };
+    #ifdef DEBUG_ESTIMATION
+        printTimestamp();
+        std::cout << "Get complimentary estimation: " << estimate << "\n";
+    #endif // DEBUG_ESTIMATION
+        return estimate;
+    }
 } // namespace filter
 
 #endif // _CONTROL_PREREQUISITES_c_

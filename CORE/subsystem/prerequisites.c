@@ -26,6 +26,7 @@
     #define DEBUG_HUMIDITY
     #define DEBUG_PRESSURE
     #define DEBUG_ULTRASONIC
+    #define DEBUG_ODOMETER
 #elif SUBSYSTEM_DEBUG_NONE
     #undef DEBUG_MOTOR
     #undef DEBUG_IMU
@@ -33,6 +34,7 @@
     #undef DEBUG_HUMIDITY
     #undef DEBUG_PRESSURE
     #undef DEBUG_ULTRASONIC
+    #undef DEBUG_ODOMETER
 #endif // SUBSYSTEM_DEBUG_ALL
 
 #endif // _SUBSYSTEM_PREREQUISITES_c_

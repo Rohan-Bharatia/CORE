@@ -21,15 +21,24 @@
 #include "CORE/control.c"
 #include "CORE/subsystem.c"
 
+#undef EMERGENCY_QUIT
+
 #ifdef DEBUG_ALL
     #define BASE_DEBUG_ALL
     #define CONTROL_DEBUG_ALL
     #define SUBSYSTEM_DEBUG_ALL
+    #define ALGORITHM_DEBUG_ALL
 #elif DEBUG_NONE
     #define BASE_DEBUG_NONE
     #define CONTROL_DEBUG_NONE
     #define SUBSYSTEM_DEBUG_NONE
+    #define ALGORITHM_DEBUG_NONE
 #endif // DEBUG_ALL
+
+void emergencyStop(void)
+{
+    #define EMERGENCY_QUIT
+}
 
 // Entry point
 int main(int argc, char* argv)
@@ -39,7 +48,12 @@ int main(int argc, char* argv)
 
     setup();
     while (1)
+    {
         loop();
+    #ifdef EMERGENCY_QUIT
+        return 1;
+    #endif // EMERGENCY_QUIT
+    }
 }
 
 #endif // _CORE_c_

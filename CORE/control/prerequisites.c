@@ -19,10 +19,8 @@
 #ifdef CONTROL_DEBUG_ALL
     #define DEBUG_PID
     #define DEBUG_FAULT
-    #define DEBUG_BEZIER
     #define DEBUG_SIGNAL_CONDITION
     #define DEBUG_ESTIMATION
-    #define DEBUG_TRAJECTORY
     #define DEBUG_FEED_FORWARD
     #define DEBUG_STATE_SPACE
     #define DEBUG_MODEL_PREDICTIVE
@@ -31,10 +29,8 @@
 #elif CONTROL_DEBUG_NONE
     #undef DEBUG_PID
     #undef DEBUG_FAULT
-    #undef DEBUG_BEZIER
     #undef DEBUG_SIGNAL_CONDITION
     #undef DEBUG_ESTIMATION
-    #undef DEBUG_TRAJECTORY
     #undef DEBUG_FEED_FORWARD
     #undef DEBUG_STATE_SPACE
     #undef DEBUG_MODEL_PREDICTIVE

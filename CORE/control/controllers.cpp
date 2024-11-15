@@ -13,8 +13,8 @@
 
 #pragma once
 
-#ifndef _CONTROL_STATE_SPACE_cpp_
-    #define _CONTROL_STATE_SPACE_cpp_
+#ifndef _CONTROL_CONTROLLERS_cpp_
+    #define _CONTROL_CONTROLLERS_cpp_
 
 #include <vector>
 
@@ -158,4 +158,4 @@ namespace controller
     };
 } // namespace controller
 
-#endif // _CONTROL_STATE_SPACE_cpp_
+#endif // _CONTROL_CONTROLLERS_cpp_
