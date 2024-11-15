@@ -20,6 +20,7 @@
 #include "CORE/base.c"
 #include "CORE/control.c"
 #include "CORE/subsystem.c"
+#include "CORE/algorithm.c"
 
 #undef EMERGENCY_QUIT
 

@@ -21,7 +21,8 @@ CORE is a robotics programming API for general purpose and autonomous robotics.
    * Ultrasonic distance sensor
  * ```CORE/algorithm/```:
    * Curve (Bézier and trajectory) generation
-   * A* pathfinder
+   * A* pathfinder (with preset maps)
+   * Basic drivetrain class (uses bezier curve movements)
 
 ## License
 This repository is under a [Gnu General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html)
