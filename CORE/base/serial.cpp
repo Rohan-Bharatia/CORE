@@ -329,7 +329,7 @@ private:
     const uint8_t rxPin;
     const uint8_t txPin;
     unsigned long baudRate;
-    bool initialized;
+    int initialized;
     uint8_t buffer[64];
     size_t bufferHead = 0;
     size_t bufferTail = 0;

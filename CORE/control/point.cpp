@@ -41,29 +41,29 @@ template <typename T> Point<T> = (Point<T> a, Point<T> b)
 }
 
 // Relational operators
-template<typename T> bool operator == (Point<T> a, Point<T> b)
+template<typename T> int operator == (Point<T> a, Point<T> b)
 {
     return ((a.x == b.x) && (a.y == b.y) && (a.z == b.z));
 }
-template<typename T> bool operator != (Point<T> a, Point<T> b)
+template<typename T> int operator != (Point<T> a, Point<T> b)
 {
     return ((a.x != b.x) && (a.y != b.y) && (a.z != b.z));
 }
 
-template<typename T> bool operator < (Point<T> a, Point<T> b)
+template<typename T> int operator < (Point<T> a, Point<T> b)
 {
     return ((a.x < b.x) && (a.y < b.y) && (a.z < b.z));
 }
-template<typename T> bool operator > (Point<T> a, Point<T> b)
+template<typename T> int operator > (Point<T> a, Point<T> b)
 {
     return ((a.x > b.x) && (a.y > b.y) && (a.z > b.z));
 }
 
-template<typename T> bool operator <= (Point<T> a, Point<T> b)
+template<typename T> int operator <= (Point<T> a, Point<T> b)
 {
     return ((a.x <= b.x) && (a.y <= b.y) && (a.z <= b.z));
 }
-template<typename T> bool operator >= (Point<T> a, Point<T> b)
+template<typename T> int operator >= (Point<T> a, Point<T> b)
 {
     return ((a.x >= b.x) && (a.y >= b.y) && (a.z >= b.z));
 }
@@ -181,15 +181,15 @@ template <typename T> Point<T> operator %= (Point<T> a, T b)
 }
 
 // Logical operators
-template<typename T> bool operator && (Point<T> a, Point<T> b)
+template<typename T> int operator && (Point<T> a, Point<T> b)
 {
     return ((a.x && b.x) && (a.y && b.y) && (a.z && b.z));
 }
-template<typename T> bool operator || (Point<T> a, Point<T> b)
+template<typename T> int operator || (Point<T> a, Point<T> b)
 {
     return ((a.x || b.x) && (a.y || b.y) && (a.z || b.z));
 }
-template<typename T> bool operator ! (Point<T> a)
+template<typename T> int operator ! (Point<T> a)
 {
     return ((!a.x) && (!a.y) && (!a.z));
 }

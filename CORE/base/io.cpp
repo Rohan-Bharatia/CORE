@@ -242,7 +242,7 @@ void attachSine(const uint8_t pin, const unsigned hz = 1, const float amp = 2.5,
 
 void playSquare(const uint8_t pin, const unsigned hz, const float duty)
 {
-    bool top = TRUE;
+    int top = TRUE;
     while (1)
     {
         if (sinesTerminate[pin])
