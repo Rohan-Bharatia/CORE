@@ -61,7 +61,7 @@ public:
     {
         pid->setpoint = setpoint;
     #ifdef DEBUG_PID
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Write setpoint: " << pid->setpoint << "\n";
     #endif // DEBUG_PID
         return;
@@ -71,7 +71,7 @@ public:
     {
         pid->mode = mode;
     #ifdef DEBUG_PID
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Write mode: " << pid->mode << "\n";
     #endif // DEBUG_PID
         return;
@@ -83,11 +83,11 @@ public:
         pid->kI = kI;
         pid->kD = kD;
     #ifdef DEBUG_PID
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Write proportional gain: " << pid->kP << "\n";
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Write integral gain: " << pid->kI << "\n";
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Write derivative gain: " << pid->kD << "\n";
     #endif // DEBUG_PID
         return;
@@ -96,20 +96,20 @@ public:
     void setLimits(double min, double max, double integral = pid->integralLimit, double ROC = pid->maxROC)
     {
     #ifdef DEBUG_PID
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Write minimum output: " << pid->min << "\n";
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Write maximum output: " << pid->max << "\n";
 
         if (integral != pid->integralLimit)
         {
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Write integral limit: " << pid->integralLimit << "\n";
         }
 
         if (ROC != pid->maxROC)
         {
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Write rate of change maximum: " << pid->integralLimit << "\n";
         }
     #endif // DEBUG_PID
@@ -160,7 +160,7 @@ public:
         pid->last = result;
 
     #ifdef DEBUG_PID
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "PID set to " << pid->kP << ", " << pid->kI << ", " << pid->kD << " calculates to " << result << "\n";
     #endif // DEBUG_PID
         return result;

@@ -47,7 +47,7 @@ public:
     void setPose(PointD position, double theta)
     {
     #ifdef DEBUG_ODOMETER
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Write pose: " << Pose{ position, theta } << "\n";
     #endif // DEBUG_ODOMETER
         current->position = position;
@@ -69,7 +69,7 @@ public:
         if(theta < 0)
             theta += TAU;
     #ifdef DEBUG_ODOMETER
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Read pose: " << current << "\n";
     #endif // DEBUG_ODOMETER
         return current;

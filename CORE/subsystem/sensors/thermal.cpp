@@ -43,7 +43,7 @@ public:
     void calibrate(double off)
     {
     #ifdef DEBUG_THERMAL
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Calibrate thermal sensor by: " << off << "\n";
     #endif // DEBUG_THERMAL
         offset += off;
@@ -58,35 +58,35 @@ public:
         {
         case CELCIUS:
         #ifdef DEBUG_THERMAL
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Read: " << temp << " ° Celcius\n";
         #endif // DEBUG_THERMAL
             return temp;
         
         case FAHRENHEIT:
         #ifdef DEBUG_THERMAL
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Read: " << (temp * 1.8) + 32.0 << " ° Fahrenheit\n";
         #endif // DEBUG_THERMAL
             return (temp * 1.8) + 32.0;
 
         case KELVIN:
         #ifdef DEBUG_THERMAL
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Read: " << temp + 273.15 << " ° Kelvin\n";
         #endif // DEBUG_THERMAL
             return temp + 273.15;
         
         case CENTIGRADE:
         #ifdef DEBUG_THERMAL
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Read: " << temp << " ° Centigrade\n";
         #endif // DEBUG_THERMAL
             return temp;
         
         case FILTERED:
         #ifdef DEBUG_THERMAL
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Filter: " << applyMovingAverageFilter(temp) << "\n";
         #endif // DEBUG_THERMAL
             return applyMovingAverageFilter(temp);
@@ -96,15 +96,15 @@ public:
 private:
     double applyMovingAverageFilter(double val)
     {
-        if (filter.size() >= size)
-            filter.pop_front();
+        if (filter.size(void) >= size)
+            filter.pop_front(void);
         filter.push_back(analogRead(port));
 
         double sum = 0.0;
         for (double val : filter)
             sum += val;
 
-        return sum / filter.size();
+        return sum / filter.size(void);
     }
 
     const uint8_t pin;

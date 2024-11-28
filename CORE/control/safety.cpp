@@ -59,7 +59,7 @@ int voltageFault(const uint8_t pin, const double threshold = DEFAULT_VOLTAGE_THR
     }
 
 #ifdef DEBUG_FAULT
-    printTimestamp();
+    printTimestamp(void);
     std::cout << "Check pin: " << std::to_string(pin) << " with " << (status->hasFault ? "a" : "no") << " voltage fault detected at " << voltage <<" volts\n";
 #endif // DEBUG_FAULT
 
@@ -87,7 +87,7 @@ int temperatureFault(FaultStatus* status, const uint8_t pin, const double thresh
     }
 
 #ifdef DEBUG_FAULT
-    printTimestamp();
+    printTimestamp(void);
     std::cout << "Check pin: " << std::to_string(pin) << " with " << (status->hasFault ? "a" : "no") << " temperature fault detected at " << temperature << " ° Celius\n";
 #endif // DEBUG_FAULT
 
@@ -108,17 +108,17 @@ int sensorTimeoutFault(FaultStatus* status, const uint8_t pin, unsigned long* ms
     FaultStatus* status = { FALSE, FAULT_NONE };
     
     if (digitalRead(pin) == HIGH)
-        ms = millis();
+        ms = millis(void);
 
-    if (millis() - *ms > threshold)
+    if (millis(void) - *ms > threshold)
     {
         status->hasFault = TRUE;
         status->type     = FAULT_SENSOR_TIMEOUT;
     }
 
 #ifdef DEBUG_FAULT
-    printTimestamp();
-    std::cout << "Check pin: " << std::to_string(pin) << " with " << (status->hasFault ? "a" : "no") << " sensor timeout fault detected at " << millis() - *ms << "Seconds\n";
+    printTimestamp(void);
+    std::cout << "Check pin: " << std::to_string(pin) << " with " << (status->hasFault ? "a" : "no") << " sensor timeout fault detected at " << millis(void) - *ms << "Seconds\n";
 #endif // DEBUG_FAULT
 
 #ifdef CDAR
@@ -136,7 +136,7 @@ T limit(T x, T min, T max)
     {
         x = min;
     #ifdef DEBUG_LIMITER
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "\'x\' has reached the lower limit: " << min << "\n";
     #endif // DEBUG_LIMITER
     }
@@ -144,7 +144,7 @@ T limit(T x, T min, T max)
     {
         x = max;
     #ifdef DEBUG_LIMITER
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "\'x\' has reached the upper limit: " << max << "\n";
     #endif // DEBUG_LIMITER
     }
@@ -167,10 +167,10 @@ public:
     {
         samples.push_back(x);
 
-        if (samples.size() > max)
-            samples.erase(samples.begin())
+        if (samples.size(void) > max)
+            samples.erase(samples.begin(void))
     #ifdef DEBUG_HEALTH
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Added to samples: " << x << "\n";
     #endif //DEBUG_HEALTH
         return;
@@ -180,22 +180,22 @@ public:
         for (T x : xs)
             samples.push_back(x);
 
-        if (samples.size() > max)
-            samples.erase(samples.begin())
+        if (samples.size(void) > max)
+            samples.erase(samples.begin(void))
     #ifdef DEBUG_HEALTH
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Added to samples: " << xs << "\n";
     #endif //DEBUG_HEALTH
         return;
     }
 
-    T average() const
+    T average(void) const
     {
-        if (samples.empty())
+        if (samples.empty(void))
             return (T)0.0;
-        T avg = std::accumulate(samples.begin(), samples.end(), 0.0) / samples.size();
+        T avg = std::accumulate(samples.begin(void), samples.end(void), 0.0) / samples.size(void);
     #ifdef DEBUG_HEALTH
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Average of samples is: " << avg << "\n";
     #endif // DEBUG_HEALTH
         return avg;
@@ -203,14 +203,14 @@ public:
 
     int isUnhealthy(T threshold) const
     {
-        if (average() > threshold)
+        if (average(void) > threshold)
         {
         #ifdef DEBUG_HEALTH
-            printTimestamp();
-            std::cout << "Average: " << average() << " has passed the threshold: " << threshold << "\n";
+            printTimestamp(void);
+            std::cout << "Average: " << average(void) << " has passed the threshold: " << threshold << "\n";
         #endif // DEBUG_HEALTH
         }
-        return average() > threshold;
+        return average(void) > threshold;
     }
 
 private:

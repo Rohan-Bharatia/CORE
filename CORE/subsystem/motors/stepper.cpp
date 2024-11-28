@@ -41,7 +41,7 @@ namespace motor
         void setSpeed(double steps) : sps(std::clamp(steps, 1, 1000))
         {
         #ifdef DEBUG_MOTOR
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Write stepper motor speed (steps): " << steps << "\n";
         #endif // DEBUG_MOTOR
             return;
@@ -49,7 +49,7 @@ namespace motor
         void setDirection(int direction)
         {
         #ifdef DEBUG_MOTOR
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Write stepper motor direction: " (direction > 0 ? "right\n" : "left\n");
         #endif // DEBUG_MOTOR
             digitalWrite(dirPin, direction > 0 ? HIGH : LOW);
@@ -58,7 +58,7 @@ namespace motor
         void step(void)
         {
         #ifdef DEBUG_MOTOR
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Stepping stepper motor\n";
         #endif // DEBUG_MOTOR
             digitalWrite(stepPin, HIGH);
@@ -71,7 +71,7 @@ namespace motor
         void angle(double degrees)
         {
         #ifdef DEBUG_MOTOR
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Going to angle on stepper motor: " << degrees << "°\n";
         #endif // DEBUG_MOTOR
             spinFor(degrees / (360 / maxSteps));
@@ -80,9 +80,9 @@ namespace motor
         void stepFor(uint64_t steps)
         {
             for (int i = 0; i < steps; ++i)
-                step();
+                step(void);
         #ifdef DEBUG_MOTOR
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Stepping stepper motor: " << steps << " times\n";
         #endif // DEBUG_MOTOR
             return;
@@ -91,7 +91,7 @@ namespace motor
         void stop(void)
         {
         #ifdef DEBUG_MOTOR
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Stopping stepper motor\n";
         #endif // DEBUG_MOTOR
             digitalWrite(enablePin, LOW);

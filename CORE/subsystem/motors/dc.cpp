@@ -37,7 +37,7 @@ namespace motor
         void setSpeed(double speed) : speed(std::clamp(speed, 0, 255))
         {
         #ifdef DEBUG_MOTOR
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Write DC motor speed: " << speed << "\n";
         #endif // DEBUG_MOTOR
             return;
@@ -45,7 +45,7 @@ namespace motor
         void setDirection(int8_t direction) : direction(std::clamp(direction, -1, 1))
         {
         #ifdef DEBUG_MOTOR
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Write DC motor direction: " << (direction > 0 ? "right\n" : "left\n");
         #endif // DEBUG_MOTOR
             return;
@@ -54,7 +54,7 @@ namespace motor
         void spin(void)
         {
         #ifdef DEBUG_MOTOR
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Spinning DC motor\n";
         #endif // DEBUG_MOTOR
             speed *= direction;
@@ -65,19 +65,19 @@ namespace motor
         void spinfor (const unsigned long ms)
         {
         #ifdef DEBUG_MOTOR
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Spinning DC motor for: " << ms / 1000 << " seconds\n";
         #endif // DEBUG_MOTOR
-            spin();
+            spin(void);
             delay(ms);
-            stop();
+            stop(void);
             return;
         }
 
         void stop(void)
         {
         #ifdef DEBUG_MOTOR
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Stopping DC motor\n";
         #endif // DEBUG_MOTOR
             analogWrite(pin, 0);

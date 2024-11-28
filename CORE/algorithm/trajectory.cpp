@@ -55,7 +55,7 @@ public:
         }
 
     #ifdef DEBUG_BEZIER
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Bezier curve calculated at " << dt << " is " << current << "\n";
     #endif // DEBUG_BEZIER
 
@@ -73,7 +73,7 @@ public:
         }
 
     #ifdef DEBUG_TRAJECTORY
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Trajectory generated at a resolution of " << resolution << " is " << traj << "\n";
     #endif // DEBUG_TRAJECTORY
 

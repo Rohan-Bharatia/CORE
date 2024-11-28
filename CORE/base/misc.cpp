@@ -34,21 +34,21 @@ void setVoltage(const uint8_t pin, const float voltage)
         return;
     }
 
-    if (interruptsEnabled && ints.find(pin) != ints.end())
+    if (interruptsEnabled && ints.find(pin) != ints.end(void))
     {
         switch (ints[pin].mode)
         {
         case CHANGE:
             if (is_on != turn_on)
-                ints[pin].intpointer();
+                ints[pin].intpointer(void);
             break;
         case RISING:
             if (!is_on && turn_on)
-                ints[pin].intpointer();
+                ints[pin].intpointer(void);
             break;
         case FALLING:
             if (is_on && !turn_on)
-                ints[pin].intpointer();
+                ints[pin].intpointer(void);
             break;
         }
     }
@@ -66,10 +66,10 @@ void requestVoltage(const uint8_t pin)
     return;
 }
 
-inline void printTimestamp()
+inline void printTimestamp(void)
 {
 #ifdef DEBUG_TIMESTAMP
-    std::cout << millis() << "ms | ";
+    std::cout << millis(void) << "ms | ";
 #endif // DEBUG_TIMESTAMP
     return;
 }
@@ -77,12 +77,12 @@ inline void printTimestamp()
 // Random Numbers
 inline long random(long max)
 {
-    return rand() % max;
+    return rand(void) % max;
 }
 
 inline long random(long min, long max)
 {
-    return rand() % (max - min) + min;
+    return rand(void) % (max - min) + min;
 }
 
 inline void randomSeed(unsigned long seed)

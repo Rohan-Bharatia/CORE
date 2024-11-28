@@ -44,13 +44,13 @@ void emergencyStop(void)
 // Entry point
 int main(int argc, char* argv)
 {
-    startTimeMillis = millis();
-    startTimeMicros = micros();
+    startTimeMillis = millis(void);
+    startTimeMicros = micros(void);
 
-    setup();
+    setup(void);
     while (1)
     {
-        loop();
+        loop(void);
     #ifdef EMERGENCY_QUIT
         return 1;
     #endif // EMERGENCY_QUIT

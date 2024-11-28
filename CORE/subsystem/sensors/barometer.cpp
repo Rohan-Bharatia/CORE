@@ -50,7 +50,7 @@ public:
     void setSeaLevelPressure(double pres) : seaLevelPressure(pres)
     {
     #define DEBUG_PRESSURE
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Writing sea level pressure: " << pres << "\n";
     #endif // DEBUG_PRESSURE
         return;
@@ -64,21 +64,21 @@ public:
         {
         case BAR:
         #define DEBUG_PRESSURE
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Reading preasure: " << pres << " Bars\n";
         #endif // DEBUG_PRESSURE
             return pres;
 
         case PASCAL:
             #define DEBUG_PRESSURE
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Reading preasure: " << pres * 100000 << " Pascals\n";
         #endif // DEBUG_PRESSURE
             return pres * 100000;
 
         case PSI:
             #define DEBUG_PRESSURE
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Reading preasure: " << pres * 14.5038 << " PSI\n";
         #endif // DEBUG_PRESSURE
             return pres * 14.5038;
@@ -93,28 +93,28 @@ public:
         {
         case METERS:
         #ifdef DEBUG_PRESSURE
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Reading altitude: " << alt << " meters\n";
         #endif // DEBUG_PRESSURE
             return alt;
 
         case KILOMETER:
             #ifdef DEBUG_PRESSURE
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Reading altitude: " << alt / 1000.0 << " kilometers\n";
         #endif // DEBUG_PRESSURE
             return alt / 1000.0;
 
         case FOOT:
             #ifdef DEBUG_PRESSURE
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Reading altitude: " << alt * 3.28084 << " feet\n";
         #endif // DEBUG_PRESSURE
             return alt * 3.28084;
 
         case MILE:
             #ifdef DEBUG_PRESSURE
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Reading altitude: " << (alt / 1000.0) * 0.62137119 << " miles\n";
         #endif // DEBUG_PRESSURE
             return (alt / 1000.0) * 0.62137119;

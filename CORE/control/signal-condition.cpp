@@ -29,7 +29,7 @@ namespace signalCondition
         double result =  alpha * input + (1.0 - alpha) * previous;
     
     #ifdef DEBUG_SIGNAL_CONDITION
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Low pass filter on: " << input << " is " << result << "\n";
     #endif // DEBUG_SIGNAL_CONDITION
 
@@ -41,7 +41,7 @@ namespace signalCondition
         double result =  alpha * (previousOut + input - previousIn);
     
     #ifdef DEBUG_SIGNAL_CONDITION
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "High pass filter on: " << input << " is " << result << "\n";
     #endif // DEBUG_SIGNAL_CONDITION
 
@@ -63,7 +63,7 @@ namespace signalCondition
     double applyDeadband(double input, double threshold)
     {
     #ifdef DEBUG_SIGNAL_CONDITION
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Deadband on: " << input << " with a threshold of " << threshold << "\n";
     #endif // DEBUG_SIGNAL_CONDITION
 

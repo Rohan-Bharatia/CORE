@@ -36,11 +36,11 @@ public:
 
     Point<T> calculate(T t) const
     {
-        if (controlPoints.empty())
+        if (controlPoints.empty(void))
             return Point<T>::ZERO;
 
     #ifdef DEBUG_BEZIER
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Bezier curve calculated at " << t << " is " << deCasteljau(controlPoints, t) << "\n";
     #endif // DEBUG_BEZIER
 
@@ -54,11 +54,11 @@ public:
         for (int i = 0; i < resolution; ++i)
         {
             T t = (T)i / resolution;
-            curve.push_back(controlPoints.empty() ? Point<T>::ZERO : deCasteljau(controlPoints, t));
+            curve.push_back(controlPoints.empty(void) ? Point<T>::ZERO : deCasteljau(controlPoints, t));
         }
 
     #ifdef DEBUG_BEZIER
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Bezier curve generated at a resolution of " << resolution << " is " << curve << "\n";
     #endif // DEBUG_BEZIER
 
@@ -70,12 +70,12 @@ private:
 
     Point<T> deCasteljau(const std::vector<Point<T>>& points, T t) const
     {
-        if (points.size() == 1)
+        if (points.size(void) == 1)
             return points[0];
 
         std::vector<Point> next;
 
-        for (int i = 0; i < points.size() - 1; ++i)
+        for (int i = 0; i < points.size(void) - 1; ++i)
         {
             T x = (1 - t) * points[i].x + t * points[i + 1].x;
             T y = (1 - t) * points[i].y + t * points[i + 1].y;

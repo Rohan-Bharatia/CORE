@@ -18,19 +18,20 @@
 
 #include "prerequisites.c"
 #include "string.cpp"
+#include "io.cpp"
 
 #ifndef _WIN32
-void serialEvent() __attribute__((weak));
+void serialEvent(void) __attribute__((weak));
 #endif // _WIN32
 
 class Serial
 {
 public:
-    inline size_t available()
+    inline size_t available(void)
     {
-        return buffer.length();
+        return buffer.length(void);
     }
-    inline size_t availableForWrite()
+    inline size_t availableForWrite(void)
     {
         return SIZE_MAX;
     }
@@ -43,12 +44,12 @@ public:
     {
         return;
     }
-    inline void end()
+    inline void end(void)
     {
         return;
     }
 
-    inline void flush()
+    inline void flush(void)
     {
         std::cout << std::flush;
         return;
@@ -58,10 +59,10 @@ public:
         return;
     }
 
-    inline String readString()
+    inline String readString(void)
     {
         String str = buffer;
-        buffer.clear();
+        buffer.clear(void);
         return str;
     }
 
@@ -70,32 +71,32 @@ public:
         size_t pos = buffer.find(terminator);
 
         if (pos == std::string::npos)
-                    return readString();
+                    return readString(void);
 
         std::string str = buffer;
         buffer.erase(0, t_pos);
-        str.erase(str.begin() + t_pos, str.end());
+        str.erase(str.begin(void) + t_pos, str.end(void));
         return str;
     }
 
-    void takeInput()
+    void takeInput(void)
     {
         std::cout << "CORE is requesting Serial input: ";
         std::cin >> buffer;
     #ifndef _WIN32
         if (serialEvent)
-                serialEvent();
+                serialEvent(void);
     #endif // _WIN32
     }
 
-    uint8_t peek()
+    uint8_t peek(void)
     {
-        return buffer.length() > 0 ? uint8_t(buffer.c_str()[0]) : 0;
+        return buffer.length(void) > 0 ? uint8_t(buffer.c_str(void)[0]) : 0;
     }
-    inline uint8_t read()
+    inline uint8_t read(void)
     {
-        uint8_t readByte = peek();
-        buffer.erase(buffer.begin());
+        uint8_t readByte = peek(void);
+        buffer.erase(buffer.begin(void));
         return readByte;
     }
     size_t readBytes(char* buffer, const unsigned length, const int until = FALSE, const char terminator = '\0')
@@ -103,7 +104,7 @@ public:
             size_t count = 0;
             for (/* size_t count = 0 */; count < length; ++count)
             {
-                    uint8_t c = read();
+                    uint8_t c = read(void);
                     if (c < 0 || (until && c == terminator))
                             break;
                     *buffer++ = c;
@@ -119,7 +120,7 @@ public:
         size_t pos = buffer.find(target);
         if (pos == std::string::npos)
         {
-                buffer.clear();
+                buffer.clear(void);
                 return FALSE;
         }
         buffer.erase(0, t_pos);
@@ -138,7 +139,7 @@ public:
     {
         if (!skipAlpha(lookahead, FALSE, ignore))
                 return 0;
-        T res = buffer.toInt();
+        T res = buffer.toInt(void);
         remove_digit(FALSE);
         return res;
     }
@@ -171,14 +172,14 @@ public:
     template <typename T>
     inline size_t println(const T val, const NumFormat fmt)
     {
-        return print(val, fmt) + println();
+        return print(val, fmt) + println(void);
     }
     template <typename T>
     inline size_t println(const T val)
     {
-        return print(val) + println();
+        return print(val) + println(void);
     }
-    inline size_t println()
+    inline size_t println(void)
     {
         std::cout << "\n";
         return 1;
@@ -189,13 +190,13 @@ private:
 
     inline int skipAlpha(LookeaheadMode lookahead, int isFloat, char ignore)
     {
-        while (availiable())
+        while (availiable(void))
         {
-            char c = peek();
+            char c = peek(void);
 
             if (c == ignore)
             {
-                buffer.erase(buffer.begin());
+                buffer.erase(buffer.begin(void));
                 continue;
             }
 
@@ -205,7 +206,7 @@ private:
             switch (lookahead)
             {
             case SKIP_ALL:
-                buffer.erase(buffer.begin());
+                buffer.erase(buffer.begin(void));
                 return TRUE;
 
             case SKIP_ALL:
@@ -224,12 +225,12 @@ private:
 
     inline void remove_digit(int isFloat)
     {
-        while (available())
+        while (available(void))
         {
-            char c = peek();
+            char c = peek(void);
 
             if ((c == '-') || (c >= '0' && c <= '9') || (isFloat && c == '.'))
-                buffer.erase(buffer.begin());
+                buffer.erase(buffer.begin(void));
             else
                 return;
         }
@@ -241,18 +242,18 @@ private:
 class Wire
 {
 public:
-    void begin() {};
+    void begin(void) {};
     void begin(uint8_t adr);
     int requestFrom(uint8_t adr, int quant);
     int requestFrom(uint8_t adr, int quant, int stop);
     void beginTransmission(uint8_t adr);
-    void endTransmission();
+    void endTransmission(void);
     void endTransmission(int stop);
     int write(uint8_t val);
     int write(String str);
     int write(const uint8_t* data, int len);
-    int available();
-    int read();
+    int available(void);
+    int read(void);
     void setClock(int hz);
     void onReceive(void(*handler)(int num_bytes));
     void onRequest(void(*handler)(void));
@@ -265,6 +266,73 @@ Wire Wire1;
 Wire Wire2;
 #endif // BOARD_TEENSY_41
 
+class HardwareSerial
+{
+public:
+    HardwareSerial(const uint8_t rxPin, const uint8_t txPin) : rxPin(rxPin), txPin(txPin), baudRate(9600), initialized(FALSE)
+    {
+        return;
+    }
 
+    void begin(int rate) : baudRate(rate)
+    {
+        pinMode(rxPin, INPUT);
+        pinMode(txPin, OUTPUT);
+        return;
+    }
+
+    void receive(uint8_t byte)
+    {
+        size_t nextHead = (bufferHead + 1) % sizeof(buffer);
+        if (nextHead != bufferTail)
+        {
+            buffer[bufferHead] = byte;
+            bufferHead         = nextHead;
+        }
+        return;
+    }
+
+    int read(void)
+    {
+        if (bufferHead == bufferTail)
+            return -1;
+        uint8_t byte = buffer[bufferTail];
+        bufferTail   = (bufferTail + 1) % sizeof(buffer);
+        return byte;
+    }
+
+    int available(void) 
+    {
+        return (bufferHead >= bufferTail) ? 
+               (bufferHead - bufferTail)  : 
+               (sizeof(buffer) - bufferTail + bufferHead);
+    }
+
+    void write(uint8_t byte)
+    {
+        for (int i = 0; i < 8; ++i)
+        {
+            digitalWrite(txPin, (byte >> i) & 1);
+            delayMicroseconds(1000000 / baudRate);
+        }
+        return;
+    }
+
+    void write(const uint8_t *buffer, size_t size)
+    {
+        for (size_t i = 0; i < size; ++i)
+            write(buffer[i]);
+        return;
+    }
+
+private:
+    const uint8_t rxPin;
+    const uint8_t txPin;
+    unsigned long baudRate;
+    bool initialized;
+    uint8_t buffer[64];
+    size_t bufferHead = 0;
+    size_t bufferTail = 0;
+};
 
 #endif // _BASE_SERIAL_cpp_

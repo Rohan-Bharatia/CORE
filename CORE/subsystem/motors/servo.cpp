@@ -39,7 +39,7 @@ namespace motor
         void setBounds(uint16_t min, uint16_t max) : min(min), max(max)
         {
         #ifdef DEBUG_MOTOR
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Setting servo motor bounds: { " << min << ", " << max << " }\n";
         #endif // DEBUG_MOTOR
             return;
@@ -48,7 +48,7 @@ namespace motor
         void angle(double degs)
         {
         #ifdef DEBUG_MOTOR
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Going to angle on servo motor: " << degrees << "°\n";
         #endif // DEBUG_MOTOR
             angle = std::clamp(angle, min, max);
@@ -59,7 +59,7 @@ namespace motor
         void stop(void)
         {
         #ifdef DEBUG_MOTOR
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Stopping servo motor\n";
         #endif // DEBUG_MOTOR
             analogWrite(enablePin, 0);

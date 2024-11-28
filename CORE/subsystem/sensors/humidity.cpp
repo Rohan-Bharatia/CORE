@@ -36,7 +36,7 @@ public:
     void calibrate(double off)
     {
     #ifdef DEBUG_HUMIDITY
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Calibrate hygrometer by: " << off << "\n";
     #endif // DEBUG_HUMIDITY
         factor += off;
@@ -45,7 +45,7 @@ public:
     double getHumidity(void)
     {
     #ifdef DEBUG_HUMIDITY
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Read humidity: " << analogRead(port) * factor << "\n";
     #endif // DEBUG_HUMIDITY
         return analogRead(port) * factor;
@@ -54,7 +54,7 @@ public:
     double getTemperature(double temp)
     {
     #ifdef DEBUG_HUMIDITY
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Read temperature: " << getHumidity(temp) << "\n";
     #endif // DEBUG_HUMIDITY
         return getHumidity(temp);
@@ -64,10 +64,10 @@ public:
     {
         const double a = 17.27;
         const double b = 237.7;
-        double alpha   = (a * getTemperature()) / (b * getTemperature()) + log(getHumidity() / 100.0);
+        double alpha   = (a * getTemperature(void)) / (b * getTemperature(void)) + log(getHumidity(void) / 100.0);
         double out     = (b * alpha) / (a - alpha);
     #ifdef DEBUG_HUMIDITY
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "calculate dew point: " << out << "\n";
     #endif // DEBUG_HUMIDITY
         return out;

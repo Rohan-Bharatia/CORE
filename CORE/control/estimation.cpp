@@ -30,7 +30,7 @@ namespace filter
         state  += K * (measurement - state);
         P      *= (1 - K);
     #ifdef DEBUG_ESTIMATION
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Get kalman estimation: " << state << "\n";
     #endif // DEBUG_ESTIMATION
         return state;
@@ -39,15 +39,15 @@ namespace filter
     double complimentary(double alpha, std::vector<double> data, double dt)
     {
         double estimate = 0.0;
-        if (data.size() <= 1)
+        if (data.size(void) <= 1)
             estimate += data[0];
         else
         {
-            for (int i = 0; i < data.size() - 1; ++i)
+            for (int i = 0; i < data.size(void) - 1; ++i)
                 estimate += alpha * (data[i] * dt) + (1.0 - alpha) * data[i + 1];
         }
     #ifdef DEBUG_ESTIMATION
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Get complimentary estimation: " << estimate << "\n";
     #endif // DEBUG_ESTIMATION
         return estimate;

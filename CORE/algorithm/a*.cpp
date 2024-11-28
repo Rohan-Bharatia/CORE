@@ -36,7 +36,7 @@ struct Node
     double hCost = 0.0;
     Node* parent = nullptr;
 
-    double fCost() const
+    double fCost(void) const
     {
         return gCost + hCost;
     }
@@ -44,15 +44,15 @@ struct Node
 
 struct NodeComparator
 {
-    double operator () (Node* a, Node* b)
+    double operator (void) (Node* a, Node* b)
     {
-        return a->fCost() > b->fCost();
+        return a->fCost(void) > b->fCost(void);
     }
 };
 
 struct NodeHasher
 {
-    uint8_t operator () (const PointD& p) const
+    uint8_t operator (void) (const PointD& p) const
     {
         uint8_t h1 = std::hash<double>{}(p.x);
         uint8_t h2 = std::hash<double>{}(p.y);
@@ -65,11 +65,11 @@ class AStar
 {
 public:
     AStar(void) = default;
-    AStar(std::vector<std::vector<PointD>> map = emptyMap(50)) : width(map.size()), height(map[0].size())
+    AStar(std::vector<std::vector<PointD>> map = emptyMap(50)) : width(map.size(void)), height(map[0].size(void))
     {
-        for (int i = 0; i < map.size(); ++i)
+        for (int i = 0; i < map.size(void); ++i)
         {
-            for(int j = 0; j < map[i].size(); ++j)
+            for(int j = 0; j < map[i].size(void); ++j)
                 blockedPoints.insert(map[i][j]);
         }
         return;
@@ -94,15 +94,15 @@ public:
         start->hCost = heuristic(start, goal);
         openSet.push(start);
 
-        while(!openSet.empty())
+        while(!openSet.empty(void))
         {
-            Node* current = openSet.top();
-            openSet.pop();
+            Node* current = openSet.top(void);
+            openSet.pop(void);
 
             if(current == goal)
             {
             #define DEBUG_A_STAR
-                printTimestamp();
+                printTimestamp(void);
                 std::cout << "Path between: " << start << " and: " << goal << " is " << reconstructPath(goal) << "\n";
             #endif // DEBUG_A_STAR
                 return reconstructPath(goal);
@@ -122,7 +122,7 @@ public:
             }
         }
     #define DEBUG_A_STAR
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "No path found\n";
     #endif // DEBUG_A_STAR
         return { /* empty list */ };
@@ -135,7 +135,7 @@ private:
 
     int isBlocked(const PointD& p)
     {
-        return blockedPoints.find(p) != blockedPoints.end();
+        return blockedPoints.find(p) != blockedPoints.end(void);
     }
 
     std::vector<Node*> getNeighbors(Node* current)
@@ -179,7 +179,7 @@ private:
             path.push_back(current);
             current = current->parent;
         }
-        std::reverse(path.begin(), path.end());
+        std::reverse(path.begin(void), path.end(void));
         return path;
     }
 };

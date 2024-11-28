@@ -41,7 +41,7 @@ public:
     void sendTriggerPulse(void)
     {
     #ifdef DEBUG_ULTRASONIC
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Sending trigger pulse for 10 microseconds\n";
     #endif // DEBUG_ULTRASONIC
         digitalWrite(triggerPin, LOW);
@@ -55,7 +55,7 @@ public:
     unsigned long getEchoPulseDuration(void)
     {
     #ifdef DEBUG_ULTRASONIC
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Recieving echo pulse\n";
     #endif // DEBUG_ULTRASONIC
         return pulseIn(echoPin, HIGH);
@@ -63,22 +63,22 @@ public:
 
     double getDistance(DistanceType type = CENTIMETER)
     {
-        sendTriggerPulse();
-        long duration = getEchoPulseDuration();
+        sendTriggerPulse(void);
+        long duration = getEchoPulseDuration(void);
         double dist = (double)duration / 2.0;
         
         switch (type)
         {
         case CENTIMETER:
         #ifdef DEBUG_ULTRASONIC
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Calculate distance: " << dist << "\n";
         #endif // DEBUG_ULTRASONIC
             return dist;
 
         case INCH:
         #ifdef DEBUG_ULTRASONIC
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Calculate distance: " << dist * 0.393701 << "\n";
         #endif // DEBUG_ULTRASONIC
             return dist * 0.393701;
@@ -87,12 +87,12 @@ public:
 
     int inRange(double min, double max)
     {
-        double distance = getDistance();
+        double distance = getDistance(void);
 
         if (distance >= min && distance <= max)
         {
         #ifdef DEBUG_ULTRASONIC
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Distance is in range: " << distance << "\n";
         #endif // DEBUG_ULTRASONIC
             return TRUE;

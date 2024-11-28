@@ -26,7 +26,7 @@ void detachInterrupt(const uint8_t pin)
     isPinDefined(pin);
     auto intpos = ints.find(pin);
 
-    if (intpos != ints.end())
+    if (intpos != ints.end(void))
         ints.erase(intpos);
     return;
 }

@@ -29,7 +29,7 @@
 
 class String : public std::string
 {
-    String()
+    String(void)
     {
         return;
     }
@@ -39,7 +39,7 @@ class String : public std::string
     {
         std::stringstream s;
         s << val;
-        append(s.str());
+        append(s.str(void));
         return;
     }
 
@@ -53,7 +53,7 @@ class String : public std::string
         {
             std::bitset<sizeof(val) * 8> bits(val);
             s << bits;
-            append(s.str());
+            append(s.str(void));
             return;
         }
         case DEC:
@@ -72,7 +72,7 @@ class String : public std::string
         }
         }
         s << (long)val;
-        append(s.str());
+        append(s.str(void));
         return;
     }
 
@@ -87,25 +87,25 @@ class String : public std::string
     {
         std::stringstream s;
         s << std::fixed << std::setprecision(decimals) << val;
-        append(s.str());
+        append(s.str(void));
         return;
     }
 
-    inline float toFloat()
+    inline float toFloat(void)
     {
-        return std::stof(c_str());
+        return std::stof(c_str(void));
     }
-    inline int toInt()
+    inline int toInt(void)
     {
-        return std::stoi(c_str());
+        return std::stoi(c_str(void));
     }
-    inline double toDouble()
+    inline double toDouble(void)
     {
-        return std::atof(c_str());
+        return std::atof(c_str(void));
     }
     inline void getBytes(byte* buf, unsigned len)
     {
-        strncpy((char*)buf, substr(0, len).c_str(), len);
+        strncpy((char*)buf, substr(0, len).c_str(void), len);
         return;
     }
     inline void toCharArray(unsigned char* buf, const unsigned len)
@@ -119,14 +119,14 @@ class String : public std::string
         return substr(pos, len);
     }
 
-    inline void toLowerCase()
+    inline void toLowerCase(void)
     {
-        std::transform(begin(), end(), begin(), [](char c) { return std::tolower(c); });
+        std::transform(begin(void), end(void), begin(void), [](char c) { return std::tolower(c); });
         return;
     }
-    inline void toUpperCase()
+    inline void toUpperCase(void)
     {
-        std::transform(begin(), end(), begin(), [](char c) { return std::toupper(c); });
+        std::transform(begin(void), end(void), begin(void), [](char c) { return std::toupper(c); });
         return;
     }
 
@@ -152,7 +152,7 @@ class String : public std::string
     }
     inline int endsWith(const String str) 
     {
-        return compare(length() - str.length(), str.length(), str) == 0;
+        return compare(length(void) - str.length(void), str.length(void), str) == 0;
     }
     inline int equals(const String str2)
     {
@@ -161,8 +161,8 @@ class String : public std::string
 
     int equalsIgnoreCase(const String str2)
     {
-            String strlwr  = String(c_str()).toLowerCase();
-            String str2lwr = String(str2.c_str()).toLowerCase();
+            String strlwr  = String(c_str(void)).toLowerCase(void);
+            String str2lwr = String(str2.c_str(void)).toLowerCase(void);
             return strlwr.compare(str2lwr) == 0;
     }
 
@@ -186,8 +186,8 @@ class String : public std::string
         size_t start_pos = 0;
         while ((start_pos = find(from, start_pos)) != npos)
         {
-                std::string::replace(start_pos, from.length(), to);
-                start_pos += to.length();
+                std::string::replace(start_pos, from.length(void), to);
+                start_pos += to.length(void);
         }
         return;
     }
@@ -197,10 +197,10 @@ class String : public std::string
         return;
     }
 
-    void trim()
+    void trim(void)
     {
-        erase(begin(), std::find_if (begin(), end(), [](char ch) { return !std::isspace(ch); }));
-        erase(std::find_if (rbegin(), rend(), [](char ch) { return !std::isspace(ch); }).base(), end());
+        erase(begin(void), std::find_if (begin(void), end(void), [](char ch) { return !std::isspace(ch); }));
+        erase(std::find_if (rbegin(void), rend(void), [](char ch) { return !std::isspace(ch); }).base(void), end(void));
         return;
     }
 };

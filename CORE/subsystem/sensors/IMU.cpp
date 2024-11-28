@@ -42,7 +42,7 @@ public:
     void reset(void)
     {
     #ifdef DEBUG_IMU
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Reseting IMU\n";
     #endif // DEBUG_IMU
         velocity = PointD::ZERO;
@@ -53,7 +53,7 @@ public:
     {
         double p = atan2(a.y, sqrt(a.x * a.x + a.z * a.z)) * (180 / PI);
     #ifdef DEBUG_IMU
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Reading IMU pitch: " << p << "\n";
     #endif // DEBUG_IMU
         return p;
@@ -63,7 +63,7 @@ public:
     {
         double y = g.z * TIME_STEP;
     #ifdef DEBUG_IMU
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Reading IMU yaw: " << y << "\n";
     #endif // DEBUG_IMU
         return y;
@@ -73,7 +73,7 @@ public:
     {
         double r = atan2(a.x, sqrt(a.y * a.y + a.z * a.z)) * (180 / PI);
     #ifdef DEBUG_IMU
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Reading IMU roll: " << r << "\n";
     #endif // DEBUG_IMU
         return r;
@@ -85,7 +85,7 @@ public:
         pos       = velocity * TIME_STEP;
 
     #ifdef DEBUG_IMU
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Reading IMU position: " << pos << "\n";
     #endif // DEBUG_IMU
         return pos;

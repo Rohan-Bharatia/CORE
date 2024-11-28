@@ -38,7 +38,7 @@ namespace controller
             double result = (kV * targetVelocity) + (kA * targetAcceleration);
         
         #ifdef DEBUG_FEED_FORWARD
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Feed forward computed with a velocity of: " << kV << " and an acceleration of: " << kA << " is " << result << "\n";
         #endif // DEBUG_FEED_FORWARD
 
@@ -66,12 +66,12 @@ namespace controller
         {
             T u = (T)0.0;
 
-            for (int i = 0; i < x0.size(); ++i)
+            for (int i = 0; i < x0.size(void); ++i)
                 U -= K[i] * (ref[i] - x0[i]);
 
-            std::vector<T> dot(x0.size(), 0.0);
+            std::vector<T> dot(x0.size(void), 0.0);
 
-            for (int i = 0; i < a.size(); ++i)
+            for (int i = 0; i < a.size(void); ++i)
             {
                 for (size_t j = 0; j < 3; ++j)
                     dot[i] += a[i].x * x0[j];
@@ -81,7 +81,7 @@ namespace controller
             }
 
         #ifdef DEBUG_STATE_SPACE
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "State space computed with the feedback control law: " << U << "\n";
         #endif // DEBUG_STATE_SPACE
 
@@ -117,9 +117,9 @@ namespace controller
             {
                 T U = -R[0] * (ref[0] - next[0]);
 
-                std::vector<T> future(a.size(), (T)0.0);
+                std::vector<T> future(a.size(void), (T)0.0);
 
-                for (int i = 0; i < a.size(); ++i)
+                for (int i = 0; i < a.size(void); ++i)
                 {
                     for (int j = 0; j < 3; ++j)
                     {
@@ -131,7 +131,7 @@ namespace controller
                     future[i] += b[i].x * U;
                 }
 
-                for (int i = 0; i < Q.size(); i++)
+                for (int i = 0; i < Q.size(void); i++)
                     cumilative += Q[i] * (ref[i] - future[i]) * (ref[i] - future[i]);
                 cumilative += R[0] * U * U;
 
@@ -142,7 +142,7 @@ namespace controller
             }
 
         #ifdef DEBUG_MODEL_PREDICTIVE
-            printTimestamp();
+            printTimestamp(void);
             std::cout << "Model predictive computed is: " << optimal << "\n";
         #endif // DEBUG_MODEL_PREDICTIVE
 

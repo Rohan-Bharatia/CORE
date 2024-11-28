@@ -39,7 +39,7 @@ public:
     void setPose(Pose pose) : pose(pose)
     {
     #ifdef DEBUG_DRIVETRAIN
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Write pose: " << pose << "\n";
     #endif // DEBUG_DRIVETRAIN
         return;
@@ -51,7 +51,7 @@ public:
         setMotorsDirection({ direction >= 0 ? RIGHT : LEFT, direction >= 0 ? RIGHT : LEFT });
         stepMotors(steps);
     #ifdef DEBUG_DRIVETRAIN
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Drive for: " << std::abs(distance) << " meters " << (direction >= ? "forward\n" : "backwards\n");
     #endif // DEBUG_DRIVETRAIN
         return;
@@ -63,7 +63,7 @@ public:
         setMotorsDirection({ degrees >= 0 ? RIGHT : LEFT, degrees >= 0 ? LEFT : RIGHT });
         stepMotors(steps);
     #ifdef DEBUG_DRIVETRAIN
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Turn for: " degrees << " degrees\n";
     #endif // DEBUG_DRIVETRAIN
         return;
@@ -75,7 +75,7 @@ public:
         double m2    = (point.y - pose.position.y) / (point.x - pose.position.x);
         double theta = std::atan(std::abs((m2 - m1) / ((m2 * m1) + 1)));
     #ifdef DEBUG_DRIVETRAIN
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Turn to: " point << "\n";
     #endif // DEBUG_DRIVETRAIN
         turn(theta);
@@ -93,7 +93,7 @@ public:
             drive(goal.position - pose.position);
         }
     #ifdef DEBUG_DRIVETRAIN
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Drive to: " goal << " on curve: " << curve << "\n";
     #endif // DEBUG_DRIVETRAIN
         return;
@@ -102,13 +102,13 @@ public:
     void stop(void)
     {
     #ifdef DEBUG_DRIVETRAIN
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Stop drivetrain\n";
     #endif // DEBUG_DRIVETRAIN
         for (auto& motor : left)
-            motor.stop();
+            motor.stop(void);
         for (auto& motor : right)
-            motor.stop();
+            motor.stop(void);
         return;
     }
 
@@ -119,7 +119,7 @@ public:
         for (auto& motor : right)
             motor.setSpeed(speed);
     #ifdef DEBUG_DRIVETRAIN
-        printTimestamp();
+        printTimestamp(void);
         std::cout << "Write speed: " << speed << "\n";
     #endif // DEBUG_DRIVETRAIN
         return;
@@ -134,7 +134,7 @@ private:
 
     std::pair<int, int> calculateSteps(double distance) const
     {
-        return { ((distance / (TAU * radius)) * left.front().getMax()), ((distance / (TAU * radius)) * right.front().getMax()) };
+        return { ((distance / (TAU * radius)) * left.front(void).getMax(void)), ((distance / (TAU * radius)) * right.front(void).getMax(void)) };
     }
     std::pair<int, int> calculateStepsForTurn(double degrees) const
     {

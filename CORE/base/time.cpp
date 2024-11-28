@@ -32,13 +32,13 @@ inline void delayMicroseconds(const unsigned long microseconds)
 
 unsigned long micros(void)
 {
-    double duration = std::chrono::system_clock::now().time_since_epoch();
-    return (unsigned long)std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() - startTimeMillis;
+    double duration = std::chrono::system_clock::now(void).time_since_epoch(void);
+    return (unsigned long)std::chrono::duration_cast<std::chrono::milliseconds>(duration).count(void) - startTimeMillis;
 }
 unsigned long millis(void)
 {
-    double duration = std::chrono::system_clock::now().time_since_epoch();
-    return (unsigned long)std::chrono::duration_cast<std::chrono::microseconds>(duration).count() - startTimeMicros;
+    double duration = std::chrono::system_clock::now(void).time_since_epoch(void);
+    return (unsigned long)std::chrono::duration_cast<std::chrono::microseconds>(duration).count(void) - startTimeMicros;
 }
 
 #endif // _BASE_TIME_cpp_

@@ -26,7 +26,7 @@ int digitalRead(const uint8_t pin)
     int res = pinVoltage[pin] > 3;
 
 #ifdef DEBUG_DIGITAL_READ
-    printTimestamp();
+    printTimestamp(void);
     std::cout << "Read pin: " << std::to_string(pin) << " is " << (res ? "HIGH\n" : "LOW\n");
 #endif // DEBUG_DIGITAL_READ
     return res;
@@ -37,7 +37,7 @@ void digitalWrite(const uint8_t pin, const int value)
     setVoltage(pin, val * 5.0f);
 
 #ifdef DEBUG_DIGITAL_WRITE
-    printTimestamp();
+    printTimestamp(void);
     std::cout << "Write pin: " << std::to_string(pin) << " is " << val << "\n";
 #endif // DEBUG_DIGITAL_WRITE
     return;
@@ -57,7 +57,7 @@ uint16_t analogRead(const uint8_t pin)
     uint16_t val = CONSTRAIN(lround(MAP(pinVoltage[pin], 0.0f, reference, 0, 1023)), 0, 1023);
 
 #ifdef DEBUG_ANALOG_READ
-    printTimestamp();
+    printTimestamp(void);
     std::cout << "Read pin: " << std::to_string(pin) << " is " << (val ? "HIGH\n" : "LOW\n");
 #endif // DEBUG_ANALOG_READ
     return val;
@@ -90,7 +90,7 @@ void analogWrite(const uint8_t pin, const uint8_t val)
     setVoltage(pin, MAP(val, 0, 255, 0.0f, 5.0f));
 
 #ifdef DEBUG_ANALOG_READ
-    printTimestamp();
+    printTimestamp(void);
     std::cout << "Write pin: " << std::to_string(pin) << " is " << val << "\n";
 #endif // DEBUG_ANALOG_READ
     return;
@@ -113,11 +113,11 @@ unsigned long pulseIn(const uint8_t pin, const int val, const unsigned long time
 
     while (digitalRead(pin) != val);
 
-    unsigned long before = micros();
+    unsigned long before = micros(void);
 
-    while (digitalRead(pin) == val && (!timeout && micros() - before >= timeout));
+    while (digitalRead(pin) == val && (!timeout && micros(void) - before >= timeout));
 
-    unsigned long after = micros();
+    unsigned long after = micros(void);
     return after - before;
 }
 
@@ -191,7 +191,7 @@ void playSine(const uint8_t pin, const unsigned hz, const float amp, const float
         if (sinesTerminate[pin])
             return;
         
-        setVoltage(pin, sin(((float)millis() / (1000.0f / (2.0f * PI))) * hz) * amp + dc);
+        setVoltage(pin, sin(((float)millis(void) / (1000.0f / (2.0f * PI))) * hz) * amp + dc);
     }
     return;
 }
@@ -204,9 +204,9 @@ void playSineAbs(const uint8_t pin, const unsigned hz, const float amp, const fl
             return;
         
         if (isAbs)
-            setVoltage(pin, abs(sin(((float)millis() / (1000.0f / (2.0f * PI))) * hz) * amp + dc));
+            setVoltage(pin, abs(sin(((float)millis(void) / (1000.0f / (2.0f * PI))) * hz) * amp + dc));
         else
-            setVoltage(pin, sin(((float)millis() / (1000.0f / (2.0f * PI))) * hz) * amp + dc);
+            setVoltage(pin, sin(((float)millis(void) / (1000.0f / (2.0f * PI))) * hz) * amp + dc);
     }
     return;
 }
@@ -216,10 +216,10 @@ void removeSine(const uint8_t pin)
     isPinDefined(pin);
     auto sinepos = sines.find(pin);
 
-    if (sinepos != sines.end())
+    if (sinepos != sines.end(void))
     {
         sinesTerminate[pin] = TRUE;
-        sines[pin].join();
+        sines[pin].join(void);
         sines.erase(sinepos);
     }
     return;
@@ -248,7 +248,7 @@ void playSquare(const uint8_t pin, const unsigned hz, const float duty)
         if (sinesTerminate[pin])
             return;
 
-        float sine     = sin((millis() / (1000.0f / (2.0f * PI))) * hz);
+        float sine     = sin((millis(void) / (1000.0f / (2.0f * PI))) * hz);
         float triangle = 1.0f-acos(sine)/PI;
         float new_top  = triangle <= duty;
 
@@ -267,10 +267,10 @@ void removeSquare(const uint8_t pin)
     isPinDefined(pin);
     auto squarepos = sines.find(pin);
 
-    if (squarepos != sines.end())
+    if (squarepos != sines.end(void))
     {
         squaresTerminate[pin] = TRUE;
-        squares[pin].join();
+        squares[pin].join(void);
         squares.erase(squarepos);
     }
     return;
@@ -281,10 +281,10 @@ void attachSquare(const uint8_t pin, const unsigned hz = 1, const float duty = 0
     isPinDefined(pin);
     auto squarepos = squares.find(pin);
 
-    if (squarepos != squares.end())
+    if (squarepos != squares.end(void))
     {
         squaresTerminate[pin] = TRUEyy;
-        squares[pin].join();
+        squares[pin].join(void);
         squares.erase(squarepos);
     }
 }
