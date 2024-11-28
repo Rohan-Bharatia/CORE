@@ -16,7 +16,6 @@
 #ifndef _CONTROL_BEZIER_cpp_
     #define _CONTROL_BEZIER_cpp_
 
-#include <algorithm>
 #include <iostream>
 #include <vector>
 
@@ -43,7 +42,7 @@ public:
         if ((direction * currentVelocity) < maxVelocity)
         {
             currentVelocity += direction * maxAcceleration * dt;
-            currentVelocity  = std::clamp(currentVelocity, -maxVelocity, maxVelocity);
+            currentVelocity  = CLAMP(currentVelocity, -maxVelocity, maxVelocity);
         }
 
         current += currentVelocity * dt;

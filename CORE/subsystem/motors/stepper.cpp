@@ -16,7 +16,6 @@
 #ifndef _SUBSYSTEM_STEPPER_MOTOR_cpp_
     #define _SUBSYSTEM_STEPPER_MOTOR_cpp_
 
-#include <algorithm>
 #include <iostream>
 
 #include "prerequisites.c"
@@ -38,7 +37,7 @@ namespace motor
             return;
         }
 
-        void setSpeed(double steps) : sps(std::clamp(steps, 1, 1000))
+        void setSpeed(double steps) : sps(CLAMP(steps, 1, 1000))
         {
         #ifdef DEBUG_MOTOR
             printTimestamp(void);

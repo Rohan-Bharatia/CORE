@@ -16,7 +16,6 @@
 #ifndef _CONTROL_PID_cpp_
     #define _CONTROL_PID_cpp_
 
-#include <algorithm>
 #include <iostream>
 #include <cmath>
 
@@ -125,7 +124,7 @@ public:
         double error      = pid->setpoint - process;
         double outP       = pid->kP * error;
         pid->integral    += error * dt;
-        pid->integral     = std::clamp(pid->integral, pid->integralLimit, -pid->integralLimit);
+        pid->integral     = CLAMP(pid->integral, pid->integralLimit, -pid->integralLimit);
         double outI       = pid->kI * pid->integral;
         double derivative = (error - pid->error) / dt;
         double outD       = pid->kD * (derivative * pid->derivativeFilter);
@@ -155,7 +154,7 @@ public:
             break;
         }
 
-        result    = std::clamp(result, pid->min, pid->max);
+        result    = CLAMP(result, pid->min, pid->max);
         result    = rate(result, pid->last, pid->maxROC);
         pid->last = result;
 

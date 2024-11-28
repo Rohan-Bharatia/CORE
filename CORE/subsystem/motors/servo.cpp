@@ -51,7 +51,7 @@ namespace motor
             printTimestamp(void);
             std::cout << "Going to angle on servo motor: " << degrees << "°\n";
         #endif // DEBUG_MOTOR
-            angle = std::clamp(angle, min, max);
+            angle = CLAMP(angle, min, max);
             analogWrite(pwmPin, MAP(speed, 0, 180, 0, 255));
             return;
         }

@@ -335,4 +335,6 @@ private:
     size_t bufferTail = 0;
 };
 
+HardwareSerial& UART;
+
 #endif // _BASE_SERIAL_cpp_

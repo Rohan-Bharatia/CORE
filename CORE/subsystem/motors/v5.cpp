@@ -30,14 +30,40 @@ namespace motor
             return;
         }
 
-        void setSpeed(int speed)
+        void setSpeed(int speed) : speed(CLAMP(speed, -127, 127))
         {
-            sendCommand(0x01, CLAMP(speed, -127, 127));
+        #ifdef DEBUG_MOTOR
+            printTimestamp(void);
+            std::cout << "Write v5 smart motor speed: " << speed << "\n";
+        #endif // DEBUG_MOTOR
+            return;
+        }
+
+        void setDirection(int8_t direction) : direction(CLAMP(direction, LEFT, RIGHT))
+        {
+            #ifdef DEBUG_MOTOR
+            printTimestamp(void);
+            std::cout << "Write DC motor direction: " << (direction > 0 ? "right\n" : "left\n");
+        #endif // DEBUG_MOTOR
+        }
+
+        void spin(void)
+        {
+        #ifdef DEBUG_MOTOR
+            printTimestamp(void);
+            std::cout << "Spinning v5 smart motor\n";
+        #endif // DEBUG_MOTOR
+            speed *= direction;
+            sendCommand(0x01, speed);
             return;
         }
 
         void stop(int hardStop = FALSE)
         {
+        #ifdef DEBUG_MOTOR
+            printTimestamp(void);
+            std::cout << "Stopping v5 smart motor\n";
+        #endif // DEBUG_MOTOR
             int s = hardStop ? -readFeedback(void) : 0;
             sendCommand(0x01, s);
             return;
@@ -46,6 +72,8 @@ namespace motor
     private:
         HardwareSerial& serial = HardwareSerial(2, 1);
         const uint8_t port;
+        int speed;
+        int8_t direction;
 
         void sendCommand(uint8_t command, uint8_t value)
         {

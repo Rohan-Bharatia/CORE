@@ -16,7 +16,6 @@
 #ifndef _SUBSYSTEM_DC_MOTOR_cpp_
     #define _SUBSYSTEM_DC_MOTOR_cpp_
 
-#include <algorithm>
 #include <iostream>
 
 #include "prerequisites.c"
@@ -34,7 +33,7 @@ namespace motor
             return;
         }
 
-        void setSpeed(double speed) : speed(std::clamp(speed, 0, 255))
+        void setSpeed(double speed) : speed(CLAMP(speed, 0, 255))
         {
         #ifdef DEBUG_MOTOR
             printTimestamp(void);
@@ -42,7 +41,7 @@ namespace motor
         #endif // DEBUG_MOTOR
             return;
         }
-        void setDirection(int8_t direction) : direction(std::clamp(direction, -1, 1))
+        void setDirection(int8_t direction) : direction(CLAMP(direction, LEFT, RIGHT))
         {
         #ifdef DEBUG_MOTOR
             printTimestamp(void);
@@ -62,7 +61,7 @@ namespace motor
             return;
         }
 
-        void spinfor (const unsigned long ms)
+        void spinFor(const unsigned long ms)
         {
         #ifdef DEBUG_MOTOR
             printTimestamp(void);
