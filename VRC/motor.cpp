@@ -29,7 +29,9 @@ namespace vrc
     {
     public:
         Motor(const uint8_t pin) : pin(pin)
-        {}
+        {
+            return;
+        }
 
         void setSpeed(int speed)
         {
