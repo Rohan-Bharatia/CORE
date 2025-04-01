@@ -26,28 +26,30 @@
 
 #pragma once
 
-#ifndef _CORE_H_
-    #define _CORE_H_
+#ifndef _CORE_BASE_SERIAL_H_
+    #define _CORE_BASE_SERIAL_H_
 
-// Include files
-#include "Base/Types.h"
-#include "Base/Analog.h"
-#include "Base/Digital.h"
-#include "Base/Time.h"
-#include "Base/Interrupts.h"
-#include "Base/Mempool.h"
-#include "Base/Serial.h"
-#include "Base/I2C.h"
-#include "Base/SPI.h"
-#include "Base/CAN.h"
-#include "Base/Server.h"
+#include "Types.h"
 
-// Version macros
-#define STRINGIFY(x) #x
-#define CORE_MAKE_VERSION(major, minor, patch) STRINGIFY(major) "." STRINGIFY(minor) "." STRINGIFY(patch)
-#define CORE_VERSION_MAJOR 1
-#define CORE_VERSION_MINOR 0
-#define CORE_VERSION_PATCH 0
-#define CORE_VERSION_STR CORE_MAKE_VERSION(CORE_VERSION_MAJOR, CORE_VERSION_MINOR, CORE_VERSION_PATCH)
+#define SERIAL_5N1 0x00
+#define SERIAL_6N1 0x02
+#define SERIAL_7N1 0x04
+#define SERIAL_8N1 0x06
+#define SERIAL_6N2 0x07
 
-#endif // _CORE_H_
+#define F_CPU        16000000L
+#define UART_BASE    0x40000000
+#define UART_DATA    (*(volatile uint8*)(UART_BASE + 0))
+#define UART_STATUS  (*(volatile uint8*)(UART_BASE + 1))
+#define UART_CONTROL (*(volatile uint8*)(UART_BASE + 2))
+#define UART_BAUD    (*(volatile uint32*)(UART_BASE + 3))
+
+void serialBegin(uint32 baudRate);
+void serialEnd(void);
+int32 serialAvailable(void);
+int32 serialRead(void);
+opsize serialWrite(uint8 bytes);
+opsize serialPrint(const char* str);
+void serialFlush(void);
+
+#endif // _CORE_BASE_SERIAL_H_

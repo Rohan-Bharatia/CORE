@@ -24,30 +24,61 @@
 
 #pragma endregion LICENSE
 
-#pragma once
+#ifndef _CORE_BASE_SPI_C_
+    #define _CORE_BASE_SPI_C_
 
-#ifndef _CORE_H_
-    #define _CORE_H_
+#include "SPI.h"
 
-// Include files
-#include "Base/Types.h"
-#include "Base/Analog.h"
-#include "Base/Digital.h"
-#include "Base/Time.h"
-#include "Base/Interrupts.h"
-#include "Base/Mempool.h"
-#include "Base/Serial.h"
-#include "Base/I2C.h"
-#include "Base/SPI.h"
-#include "Base/CAN.h"
-#include "Base/Server.h"
+void spiBegin(void)
+{
+    SPI_CONTROL = 0x50; // Enable SPI (master mode)
+}
 
-// Version macros
-#define STRINGIFY(x) #x
-#define CORE_MAKE_VERSION(major, minor, patch) STRINGIFY(major) "." STRINGIFY(minor) "." STRINGIFY(patch)
-#define CORE_VERSION_MAJOR 1
-#define CORE_VERSION_MINOR 0
-#define CORE_VERSION_PATCH 0
-#define CORE_VERSION_STR CORE_MAKE_VERSION(CORE_VERSION_MAJOR, CORE_VERSION_MINOR, CORE_VERSION_PATCH)
+void spiEnd(void)
+{
+    SPI_CONTROL = 0x00;
+}
 
-#endif // _CORE_H_
+void spiSetClockDivider(uint8 div)
+{
+    SPI_CONTROL = (SPI_CONTROL & 0xF0) | (div & 0x0F);
+}
+
+void spiSetBitOrder(uint8 bitOrder)
+{
+    if (bitOrder == LSBFIRST)
+        SPI_CONTROL |= 0x08;
+    else // MSBFIRST
+        SPI_CONTROL &= ~0x80;
+}
+
+void spiSetDataMode(uint8 mode)
+{
+    switch (mode)
+    {
+    case SPI_MODE0:
+        SPI_CONTROL &= ~0x30;
+        return;
+    case SPI_MODE1:
+        SPI_CONTROL |= 0x10;
+        return;
+    case SPI_MODE2:
+        SPI_CONTROL |= 0x20;
+        return;
+    case SPI_MODE3:
+        SPI_CONTROL |= 0x30;
+        return;
+    default:
+        SPI_CONTROL = 0x00;
+        return;
+    }
+}
+
+uint8 spiTransfer(uint8 data)
+{
+    SPI_DATA = data;
+    while (!(SPI_DATA & 0x08));
+    return SPI_DATA;
+}
+
+#endif // _CORE_BASE_SPI_C_

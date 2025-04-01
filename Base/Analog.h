@@ -26,28 +26,24 @@
 
 #pragma once
 
-#ifndef _CORE_H_
-    #define _CORE_H_
+#ifndef _CORE_BASE_ANALOG_H_
+    #define _CORE_BASE_ANALOG_H_
 
-// Include files
-#include "Base/Types.h"
-#include "Base/Analog.h"
-#include "Base/Digital.h"
-#include "Base/Time.h"
-#include "Base/Interrupts.h"
-#include "Base/Mempool.h"
-#include "Base/Serial.h"
-#include "Base/I2C.h"
-#include "Base/SPI.h"
-#include "Base/CAN.h"
-#include "Base/Server.h"
+#include "Types.h"
 
-// Version macros
-#define STRINGIFY(x) #x
-#define CORE_MAKE_VERSION(major, minor, patch) STRINGIFY(major) "." STRINGIFY(minor) "." STRINGIFY(patch)
-#define CORE_VERSION_MAJOR 1
-#define CORE_VERSION_MINOR 0
-#define CORE_VERSION_PATCH 0
-#define CORE_VERSION_STR CORE_MAKE_VERSION(CORE_VERSION_MAJOR, CORE_VERSION_MINOR, CORE_VERSION_PATCH)
+// ADC reference selection
+#define ADC_DEFAULT  0
+#define ADC_INTERNAL 1
+#define ADC_EXTERNAL 2
 
-#endif // _CORE_H_
+#define ADC_BASE    0x40001000
+#define ADC_CONTROL (*(volatile uint32*)(ADC_BASE + 0))
+#define ADC_DATA    (*(volatile uint32*)(ADC_BASE + 4))
+#define DAC_BASE    0x40001100
+#define DAC_DATA    (*(volatile uint32*)(DAC_BASE + 0))
+
+void analogReference(uint8 mode);
+int32 analogRead(uint8 pin);
+void analogWrite(uint8 pin, int32 value);
+
+#endif // _CORE_BASE_ANALOG_H_

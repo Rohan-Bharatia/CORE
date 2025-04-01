@@ -26,28 +26,30 @@
 
 #pragma once
 
-#ifndef _CORE_H_
-    #define _CORE_H_
+#ifndef _CORE_BASE_DIGITAL_H_
+    #define _CORE_BASE_DIGITAL_H_
 
-// Include files
-#include "Base/Types.h"
-#include "Base/Analog.h"
-#include "Base/Digital.h"
-#include "Base/Time.h"
-#include "Base/Interrupts.h"
-#include "Base/Mempool.h"
-#include "Base/Serial.h"
-#include "Base/I2C.h"
-#include "Base/SPI.h"
-#include "Base/CAN.h"
-#include "Base/Server.h"
+#include "Types.h"
 
-// Version macros
-#define STRINGIFY(x) #x
-#define CORE_MAKE_VERSION(major, minor, patch) STRINGIFY(major) "." STRINGIFY(minor) "." STRINGIFY(patch)
-#define CORE_VERSION_MAJOR 1
-#define CORE_VERSION_MINOR 0
-#define CORE_VERSION_PATCH 0
-#define CORE_VERSION_STR CORE_MAKE_VERSION(CORE_VERSION_MAJOR, CORE_VERSION_MINOR, CORE_VERSION_PATCH)
+// Pin modes
+#define INPUT             0
+#define OUTPUT            1
+#define INPUT_PULLUP      2
+#define INPUT_PULLDOWN    3
+#define OUTPUT_OPEN_DRAIN 4
 
-#endif // _CORE_H_
+// Pin states
+#define LOW  0
+#define HIGH 1
+
+#define GPIO_BASE 0x40000000
+#define GPIO_MODE (*(volatile uint32*)(GPIO_BASE + 0))
+#define GPIO_OUT  (*(volatile uint32*)(GPIO_BASE + 4))
+#define GPIO_IN   (*(volatile uint32*)(GPIO_BASE + 8))
+
+void pinMode(uint8 pin, uint8 mode);
+void digitalWrite(uint8 pin, uint8 value);
+int32 digitalRead(uint8 pin);
+void digitalToggle(uint8 pin);
+
+#endif // _CORE_BASE_DIGITAL_H_

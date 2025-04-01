@@ -26,28 +26,28 @@
 
 #pragma once
 
-#ifndef _CORE_H_
-    #define _CORE_H_
+#ifndef _CORE_BASE_CAN_H_
+    #define _CORE_BASE_CAN_H_
 
-// Include files
-#include "Base/Types.h"
-#include "Base/Analog.h"
-#include "Base/Digital.h"
-#include "Base/Time.h"
-#include "Base/Interrupts.h"
-#include "Base/Mempool.h"
-#include "Base/Serial.h"
-#include "Base/I2C.h"
-#include "Base/SPI.h"
-#include "Base/CAN.h"
-#include "Base/Server.h"
+#include "Types.h"
 
-// Version macros
-#define STRINGIFY(x) #x
-#define CORE_MAKE_VERSION(major, minor, patch) STRINGIFY(major) "." STRINGIFY(minor) "." STRINGIFY(patch)
-#define CORE_VERSION_MAJOR 1
-#define CORE_VERSION_MINOR 0
-#define CORE_VERSION_PATCH 0
-#define CORE_VERSION_STR CORE_MAKE_VERSION(CORE_VERSION_MAJOR, CORE_VERSION_MINOR, CORE_VERSION_PATCH)
+#define CAN_BASE    0x40003000
+#define CAN_CONTROL (*(volatile uint32*)(CAN_BASE + 0))
+#define CAN_STATUS  (*(volatile uint32*)(CAN_BASE + 4))
+#define CAN_TX_DATA (*(volatile uint32*)(CAN_BASE + 8))
+#define CAN_RX_DATA (*(volatile uint32*)(CAN_BASE + 12))
 
-#endif // _CORE_H_
+typedef struct
+{
+    uint32 id;
+    uint8 length;
+    uint8 data[8];
+} CANMessage;
+
+void canBegin(uint32 baudRate);
+void canEnd(void);
+bool canSend(CANMessage* msg);
+bool canReceive(CANMessage* msg);
+uint8 canAvailable(void);
+
+#endif // _CORE_BASE_CAN_H_

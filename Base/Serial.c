@@ -24,30 +24,55 @@
 
 #pragma endregion LICENSE
 
-#pragma once
+#ifndef _CORE_BASE_SERIAL_C_
+    #define _CORE_BASE_SERIAL_C_
 
-#ifndef _CORE_H_
-    #define _CORE_H_
+#include "Serial.h"
 
-// Include files
-#include "Base/Types.h"
-#include "Base/Analog.h"
-#include "Base/Digital.h"
-#include "Base/Time.h"
-#include "Base/Interrupts.h"
-#include "Base/Mempool.h"
-#include "Base/Serial.h"
-#include "Base/I2C.h"
-#include "Base/SPI.h"
-#include "Base/CAN.h"
-#include "Base/Server.h"
+void serialBegin(uint32 baudRate)
+{
+    UART_BAUD    = (F_CPU / 16 / baudRate - 1);
+    UART_CONTROL = 0x018; // Enable RX & TX
+}
 
-// Version macros
-#define STRINGIFY(x) #x
-#define CORE_MAKE_VERSION(major, minor, patch) STRINGIFY(major) "." STRINGIFY(minor) "." STRINGIFY(patch)
-#define CORE_VERSION_MAJOR 1
-#define CORE_VERSION_MINOR 0
-#define CORE_VERSION_PATCH 0
-#define CORE_VERSION_STR CORE_MAKE_VERSION(CORE_VERSION_MAJOR, CORE_VERSION_MINOR, CORE_VERSION_PATCH)
+void serialEnd(void)
+{
+    UART_CONTROL = 0x00;
+}
 
-#endif // _CORE_H_
+int32 serialAvailable(void)
+{
+    return UART_STATUS & 0x80;
+}
+
+int32 serialRead(void)
+{
+    while (!serialAvailable());
+    return UART_DATA;
+}
+
+opsize serialWrite(uint8 bytes)
+{
+    while (!(UART_STATUS & 0x20));
+    UART_DATA = bytes;
+    return 1;
+}
+
+opsize serialPrint(const char* str)
+{
+    opsize count = 0;
+    while (*str)
+    {
+        count += serialWrite(*str++);
+        ++count;
+    }
+    return count;
+}
+
+void serialFlush(void)
+{
+    while (serialAvailable())
+        serialRead();
+}
+
+#endif // _CORE_BASE_SERIAL_C_

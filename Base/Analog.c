@@ -24,30 +24,27 @@
 
 #pragma endregion LICENSE
 
-#pragma once
+#ifndef _CORE_BASE_ANALOG_C_
+    #define _CORE_BASE_ANALOG_C_
 
-#ifndef _CORE_H_
-    #define _CORE_H_
+#include "Analog.h"
 
-// Include files
-#include "Base/Types.h"
-#include "Base/Analog.h"
-#include "Base/Digital.h"
-#include "Base/Time.h"
-#include "Base/Interrupts.h"
-#include "Base/Mempool.h"
-#include "Base/Serial.h"
-#include "Base/I2C.h"
-#include "Base/SPI.h"
-#include "Base/CAN.h"
-#include "Base/Server.h"
+void analogReference(uint8 mode)
+{
+    ADC_CONTROL = (ADC_CONTROL & 0x0F) | ((mode & 0x07) << 4);
+}
 
-// Version macros
-#define STRINGIFY(x) #x
-#define CORE_MAKE_VERSION(major, minor, patch) STRINGIFY(major) "." STRINGIFY(minor) "." STRINGIFY(patch)
-#define CORE_VERSION_MAJOR 1
-#define CORE_VERSION_MINOR 0
-#define CORE_VERSION_PATCH 0
-#define CORE_VERSION_STR CORE_MAKE_VERSION(CORE_VERSION_MAJOR, CORE_VERSION_MINOR, CORE_VERSION_PATCH)
+int32 analogRead(uint8 pin)
+{
+    ADC_CONTROL = pin & 0x0F;
+    while (ADC_CONTROL & 0x80); // Wait for conversion
+    return ADC_DATA & 0xFFF;
+}
 
-#endif // _CORE_H_
+void analogWrite(uint8 pin, int32 value)
+{
+    uint32 data = (pin << 16) | (value & 0xFFF);
+    DAC_DATA    = data;
+}
+
+#endif // _CORE_BASE_ANALOG_C_

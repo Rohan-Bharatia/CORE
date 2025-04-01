@@ -24,30 +24,49 @@
 
 #pragma endregion LICENSE
 
-#pragma once
+#ifndef _CORE_BASE_CAN_C_
+    #define _CORE_BASE_CAN_C_
 
-#ifndef _CORE_H_
-    #define _CORE_H_
+#include "CAN.h"
 
-// Include files
-#include "Base/Types.h"
-#include "Base/Analog.h"
-#include "Base/Digital.h"
-#include "Base/Time.h"
-#include "Base/Interrupts.h"
-#include "Base/Mempool.h"
-#include "Base/Serial.h"
-#include "Base/I2C.h"
-#include "Base/SPI.h"
-#include "Base/CAN.h"
-#include "Base/Server.h"
+void canBegin(uint32 baudRate)
+{
+    CAN_CONTROL = baudRate | 0x80000000; // Enable CAN
+}
 
-// Version macros
-#define STRINGIFY(x) #x
-#define CORE_MAKE_VERSION(major, minor, patch) STRINGIFY(major) "." STRINGIFY(minor) "." STRINGIFY(patch)
-#define CORE_VERSION_MAJOR 1
-#define CORE_VERSION_MINOR 0
-#define CORE_VERSION_PATCH 0
-#define CORE_VERSION_STR CORE_MAKE_VERSION(CORE_VERSION_MAJOR, CORE_VERSION_MINOR, CORE_VERSION_PATCH)
+void canEnd(void)
+{
+    CAN_CONTROL = 0;
+}
 
-#endif // _CORE_H_
+bool canSend(CANMessage* msg)
+{
+    // Check if TX buffer is available
+    if (!(CAN_STATUS & 0x04))
+    {
+        CAN_TX_DATA = (msg->id << 21) | (msg->length << 16) | msg->data[0];
+        return true;
+    }
+    return false;
+}
+
+bool canReceive(CANMessage* msg)
+{
+    // Check if message received
+    if (CAN_STATUS & 0x01)
+    {
+        uint32 rxData = CAN_RX_DATA;
+        msg->id       = (rxData >> 21) & 0x7FF;
+        msg->length   = (rxData >> 16) & 0x0F;
+        msg->data[0]  = rxData & 0xFF;
+        return true;
+    }
+    return false;
+}
+
+uint8 canAvailable(void)
+{
+    return CAN_STATUS & 0x01;
+}
+
+#endif // _CORE_BASE_CAN_C_

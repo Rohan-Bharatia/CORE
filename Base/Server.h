@@ -26,28 +26,40 @@
 
 #pragma once
 
-#ifndef _CORE_H_
-    #define _CORE_H_
+#ifndef _CORE_BASE_SERVER_H_
+    #define _CORE_BASE_SERVER_H_
 
-// Include files
-#include "Base/Types.h"
-#include "Base/Analog.h"
-#include "Base/Digital.h"
-#include "Base/Time.h"
-#include "Base/Interrupts.h"
-#include "Base/Mempool.h"
-#include "Base/Serial.h"
-#include "Base/I2C.h"
-#include "Base/SPI.h"
-#include "Base/CAN.h"
-#include "Base/Server.h"
+#include "Types.h"
 
-// Version macros
-#define STRINGIFY(x) #x
-#define CORE_MAKE_VERSION(major, minor, patch) STRINGIFY(major) "." STRINGIFY(minor) "." STRINGIFY(patch)
-#define CORE_VERSION_MAJOR 1
-#define CORE_VERSION_MINOR 0
-#define CORE_VERSION_PATCH 0
-#define CORE_VERSION_STR CORE_MAKE_VERSION(CORE_VERSION_MAJOR, CORE_VERSION_MINOR, CORE_VERSION_PATCH)
+#define ETH_BASE     0x40004000
+#define ETH_CONTROL  (*(volatile uint32*)(ETH_BASE + 0))
+#define ETH_STATUS   (*(volatile uint32*)(ETH_BASE + 4))
+#define ETH_MAC_HIGH (*(volatile uint32*)(ETH_BASE + 8))
+#define ETH_MAC_LOW  (*(volatile uint32*)(ETH_BASE + 12))
 
-#endif // _CORE_H_
+typedef struct
+{
+    uint8 octets[4];
+} IPAddress;
+
+typedef struct
+{
+    uint16 port;
+    IPAddress ip;
+} NetworkClient;
+
+typedef struct
+{
+    uint16 port;
+    uint8 maxClients;
+} NetworkServer;
+
+bool networkBegin(IPAddress* ip);
+void networkEnd(void);
+NetworkClient* networkConnect(IPAddress* ip, uint16 port);
+NetworkServer* networkListen(uint16 port, uint8 maxClients);
+opsize networkSend(NetworkClient* client, const uint8* data, opsize length);
+opsize networkReceive(NetworkClient* client, uint8* buffer, opsize maxLength);
+void networkClose(NetworkClient* client);
+
+#endif // _CORE_BASE_SERVER_H_

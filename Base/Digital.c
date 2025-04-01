@@ -24,30 +24,34 @@
 
 #pragma endregion LICENSE
 
-#pragma once
+#ifndef _CORE_BASE_DIGITAL_C_
+    #define _CORE_BASE_DIGITAL_C_
 
-#ifndef _CORE_H_
-    #define _CORE_H_
+#include "Digital.h"
 
-// Include files
-#include "Base/Types.h"
-#include "Base/Analog.h"
-#include "Base/Digital.h"
-#include "Base/Time.h"
-#include "Base/Interrupts.h"
-#include "Base/Mempool.h"
-#include "Base/Serial.h"
-#include "Base/I2C.h"
-#include "Base/SPI.h"
-#include "Base/CAN.h"
-#include "Base/Server.h"
+void pinMode(uint8 pin, uint8 mode)
+{
+    uint32 shift = pin * 2;
+    GPIO_MODE   &= ~(0x03 << shift);
+    GPIO_MODE   |= (mode & 0x03) << shift;
+}
 
-// Version macros
-#define STRINGIFY(x) #x
-#define CORE_MAKE_VERSION(major, minor, patch) STRINGIFY(major) "." STRINGIFY(minor) "." STRINGIFY(patch)
-#define CORE_VERSION_MAJOR 1
-#define CORE_VERSION_MINOR 0
-#define CORE_VERSION_PATCH 0
-#define CORE_VERSION_STR CORE_MAKE_VERSION(CORE_VERSION_MAJOR, CORE_VERSION_MINOR, CORE_VERSION_PATCH)
+void digitalWrite(uint8 pin, uint8 value)
+{
+    if (value)
+        GPIO_OUT |= (1 << pin);
+    else
+        GPIO_OUT &= ~(1 << pin);
+}
 
-#endif // _CORE_H_
+int32 digitalRead(uint8 pin)
+{
+    return (GPIO_IN & (1 << pin)) != 0;
+}
+
+void digitalToggle(uint8 pin)
+{
+    GPIO_OUT ^= (1 << pin);
+}
+
+#endif // _CORE_BASE_DIGITAL_C_

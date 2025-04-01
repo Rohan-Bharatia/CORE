@@ -26,28 +26,25 @@
 
 #pragma once
 
-#ifndef _CORE_H_
-    #define _CORE_H_
+#ifndef _CORE_BASE_I2C_H_
+    #define _CORE_BASE_I2C_H_
 
-// Include files
-#include "Base/Types.h"
-#include "Base/Analog.h"
-#include "Base/Digital.h"
-#include "Base/Time.h"
-#include "Base/Interrupts.h"
-#include "Base/Mempool.h"
-#include "Base/Serial.h"
-#include "Base/I2C.h"
-#include "Base/SPI.h"
-#include "Base/CAN.h"
-#include "Base/Server.h"
+#include "Types.h"
 
-// Version macros
-#define STRINGIFY(x) #x
-#define CORE_MAKE_VERSION(major, minor, patch) STRINGIFY(major) "." STRINGIFY(minor) "." STRINGIFY(patch)
-#define CORE_VERSION_MAJOR 1
-#define CORE_VERSION_MINOR 0
-#define CORE_VERSION_PATCH 0
-#define CORE_VERSION_STR CORE_MAKE_VERSION(CORE_VERSION_MAJOR, CORE_VERSION_MINOR, CORE_VERSION_PATCH)
+#define I2C_BASE    0x40001000
+#define I2C_CONTROL (*(volatile uint8*)(I2C_BASE + 0))
+#define I2C_STATUS  (*(volatile uint8*)(I2C_BASE + 1))
+#define I2C_DATA    (*(volatile uint8*)(I2C_BASE + 2))
+#define I2C_CLOCK   (*(volatile uint32*)(I2C_BASE + 3))
 
-#endif // _CORE_H_
+void i2cBegin(void);
+void i2cEnd(void);
+void i2cSetClock(uint32 clockFreq);
+uint8 i2cRequestFrom(uint8 address, uint8 quantity);
+void i2cBeginTransmission(uint8 address);
+uint8 i2cEndTransmission(bool sendStop);
+opsize i2cWrite(uint8 data);
+int32 i2cRead(void);
+int32 i2cAvailable(void);
+
+#endif // _CORE_BASE_I2C_H_

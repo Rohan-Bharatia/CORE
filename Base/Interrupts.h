@@ -26,28 +26,25 @@
 
 #pragma once
 
-#ifndef _CORE_H_
-    #define _CORE_H_
+#ifndef _CORE_BASE_INTERRUPTS_H_
+    #define _CORE_BASE_INTERRUPTS_H_
 
-// Include files
-#include "Base/Types.h"
-#include "Base/Analog.h"
-#include "Base/Digital.h"
-#include "Base/Time.h"
-#include "Base/Interrupts.h"
-#include "Base/Mempool.h"
-#include "Base/Serial.h"
-#include "Base/I2C.h"
-#include "Base/SPI.h"
-#include "Base/CAN.h"
-#include "Base/Server.h"
+#include "Types.h"
 
-// Version macros
-#define STRINGIFY(x) #x
-#define CORE_MAKE_VERSION(major, minor, patch) STRINGIFY(major) "." STRINGIFY(minor) "." STRINGIFY(patch)
-#define CORE_VERSION_MAJOR 1
-#define CORE_VERSION_MINOR 0
-#define CORE_VERSION_PATCH 0
-#define CORE_VERSION_STR CORE_MAKE_VERSION(CORE_VERSION_MAJOR, CORE_VERSION_MINOR, CORE_VERSION_PATCH)
+typedef void (*InterruptHandler)(void);
 
-#endif // _CORE_H_
+#define MAX_INTERRUPTS 32
+
+// Interrupt modes
+#define INT_RISING  0x01
+#define INT_FALLING 0x02
+#define INT_CHANGE  0x03
+#define INT_LOW     0x04
+#define INT_HIGH    0x05
+
+void attachInterrupt(uint8 pin, InterruptHandler handler, uint8 mode);
+void detachInterrupt(uint8 pin);
+void noInterrupts(void);
+void interrupts(void);
+
+#endif // _CORE_BASE_INTERRUPTS_H_

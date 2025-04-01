@@ -26,28 +26,29 @@
 
 #pragma once
 
-#ifndef _CORE_H_
-    #define _CORE_H_
+#ifndef _CORE_BASE_SPI_H_
+    #define _CORE_BASE_SPI_H_
 
-// Include files
-#include "Base/Types.h"
-#include "Base/Analog.h"
-#include "Base/Digital.h"
-#include "Base/Time.h"
-#include "Base/Interrupts.h"
-#include "Base/Mempool.h"
-#include "Base/Serial.h"
-#include "Base/I2C.h"
-#include "Base/SPI.h"
-#include "Base/CAN.h"
-#include "Base/Server.h"
+#include "Types.h"
 
-// Version macros
-#define STRINGIFY(x) #x
-#define CORE_MAKE_VERSION(major, minor, patch) STRINGIFY(major) "." STRINGIFY(minor) "." STRINGIFY(patch)
-#define CORE_VERSION_MAJOR 1
-#define CORE_VERSION_MINOR 0
-#define CORE_VERSION_PATCH 0
-#define CORE_VERSION_STR CORE_MAKE_VERSION(CORE_VERSION_MAJOR, CORE_VERSION_MINOR, CORE_VERSION_PATCH)
+#define SPI_MODE0 0x00
+#define SPI_MODE1 0x04
+#define SPI_MODE2 0x08
+#define SPI_MODE3 0x0C
 
-#endif // _CORE_H_
+#define LSBFIRST 0
+#define MSBFIRST 1
+
+#define SPI_BASE    0x40002000
+#define SPI_CONTROL (*(volatile uint8*)(SPI_BASE + 0))
+#define SPI_STATUS  (*(volatile uint8*)(SPI_BASE + 1))
+#define SPI_DATA    (*(volatile uint8*)(SPI_BASE + 2))
+
+void spiBegin(void);
+void spiEnd(void);
+void spiSetClockDivider(uint8 div);
+void spiSetBitOrder(uint8 bitOrder);
+void spiSetDataMode(uint8 mode);
+uint8 spiTransfer(uint8 data);
+
+#endif // _CORE_BASE_SPI_H_

@@ -26,28 +26,23 @@
 
 #pragma once
 
-#ifndef _CORE_H_
-    #define _CORE_H_
+#ifndef _CORE_BASE_MEMPOOL_H_
+    #define _CORE_BASE_MEMPOOL_H_
 
-// Include files
-#include "Base/Types.h"
-#include "Base/Analog.h"
-#include "Base/Digital.h"
-#include "Base/Time.h"
-#include "Base/Interrupts.h"
-#include "Base/Mempool.h"
-#include "Base/Serial.h"
-#include "Base/I2C.h"
-#include "Base/SPI.h"
-#include "Base/CAN.h"
-#include "Base/Server.h"
+#include "Types.h"
 
-// Version macros
-#define STRINGIFY(x) #x
-#define CORE_MAKE_VERSION(major, minor, patch) STRINGIFY(major) "." STRINGIFY(minor) "." STRINGIFY(patch)
-#define CORE_VERSION_MAJOR 1
-#define CORE_VERSION_MINOR 0
-#define CORE_VERSION_PATCH 0
-#define CORE_VERSION_STR CORE_MAKE_VERSION(CORE_VERSION_MAJOR, CORE_VERSION_MINOR, CORE_VERSION_PATCH)
+typedef struct
+{
+    void* start;
+    opsize blockSize;
+    uint32 blockCount;
+    uint32 freeBlocks;
+    uint8* bitmap;
+} MemPool;
 
-#endif // _CORE_H_
+MemPool* createPool(opsize blockSize, uint32 blockCount);
+void* poolAlloc(MemPool* pool);
+void poolFree(MemPool* pool, void* ptr);
+void destroyPool(MemPool* pool);
+
+#endif // _CORE_BASE_MEMPOOL_H_
