@@ -26,24 +26,20 @@
 
 #pragma once
 
-#ifndef _CORE_CONTROLLERS_LINEAR_ACTUATOR_H_
-    #define _CORE_CONTROLLERS_LINEAR_ACTUATOR_H_
+#ifndef _CORE_CONTROLLER_KALMAN_FILTER_H_
+    #define _CORE_CONTROLLER_KALMAN_FILTER_H_
 
-#include "Motor.h"
-#include "../Base/Digital.h"
-#include "../Base/Analog.h"
+#include "../Base/Types.h"
 
 typedef struct
 {
-    Motor* base;
-    uint8 pwmPin;
-    uint8 dirPin;
-    uint8 limitSwitchPin;
-    uint32 maxPosition;
-    uint32 currentPosition;
-} LinearActuator;
+    float32 state;        // State estimate
+    float32 variance;     // Estimate variance
+    float32 processNoise; // Process noise
+    float32 sensorNoise;  // Sensor noise
+} KalmanFilter;
 
-LinearActuator* linearActuatorInitialize(uint8 pwmPin, uint8 dirPin, uint8 limitSwitchPin);
-void LinearActuatorSetPosition(LinearActuator* actuator, uint32 position);
+KalmanFilter* KalmanFilterInit(float32 state, float32 variance);
+float32 KalmanFilterUpdate(KalmanFilter* filter, float32 measurement);
 
-#endif // _CORE_CONTROLLERS_LINEAR_ACTUATOR_H_
+#endif // _CORE_CONTROLLER_KALMAN_FILTER_H_

@@ -26,24 +26,30 @@
 
 #pragma once
 
-#ifndef _CORE_CONTROLLERS_LINEAR_ACTUATOR_H_
-    #define _CORE_CONTROLLERS_LINEAR_ACTUATOR_H_
+#ifndef _CORE_CONTROLLER_STATE_MACHINE_H_
+    #define _CORE_CONTROLLER_STATE_MACHINE_H_
 
-#include "Motor.h"
-#include "../Base/Digital.h"
-#include "../Base/Analog.h"
+#include "../Base/Types.h"
+
+#define MAX_STATES 32
+#define MAX_TRANSITIONS 64
+
+typedef void(*StateFunction)(void);
+typedef bool(*TransitionFunction)(void);
 
 typedef struct
 {
-    Motor* base;
-    uint8 pwmPin;
-    uint8 dirPin;
-    uint8 limitSwitchPin;
-    uint32 maxPosition;
-    uint32 currentPosition;
-} LinearActuator;
+    uint8 currentState;
+    uint8 stateCount;
+    uint8 transitionCount;
+    StateFunction states[MAX_STATES];
+    TransitionFunction transitions[MAX_TRANSITIONS];
+    uint8 transitionMap[MAX_STATES][MAX_STATES];
+} StateMachine;
 
-LinearActuator* linearActuatorInitialize(uint8 pwmPin, uint8 dirPin, uint8 limitSwitchPin);
-void LinearActuatorSetPosition(LinearActuator* actuator, uint32 position);
+StateMachine* stateMachineInitialize(void);
+void stateMachineAddState(StateMachine* sm, StateFunction state);
+void stateMachineAddTransition(StateMachine* sm, uint8 fromState, uint8 toState, TransitionFunction condition);
+void stateMachineUpdate(StateMachine* sm);
 
-#endif // _CORE_CONTROLLERS_LINEAR_ACTUATOR_H_
+#endif // _CORE_CONTROLLER_STATE_MACHINE_H_

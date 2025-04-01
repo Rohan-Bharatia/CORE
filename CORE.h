@@ -50,6 +50,14 @@
 #include "Motor/BLDC.h"
 #include "Motor/LinearActuator.h"
 
+// Controller files
+#include "Controller/Geometry.h"
+#include "Controller/PID.h"
+#include "Controller/StateMachine.h"
+#include "Controller/KalmanFilter.h"
+#include "Controller/Kinematics.h"
+#include "Controller/Trajectory.h"
+
 // Version macros
 #define STRINGIFY(x) #x
 #define CORE_MAKE_VERSION(major, minor, patch) STRINGIFY(major) "." STRINGIFY(minor) "." STRINGIFY(patch)

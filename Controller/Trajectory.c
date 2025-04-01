@@ -24,26 +24,50 @@
 
 #pragma endregion LICENSE
 
-#pragma once
+#ifndef _CORE_CONTROLLER_TRAJECTORY_C_
+    #define _CORE_CONTROLLER_TRAJECTORY_C_
 
-#ifndef _CORE_CONTROLLERS_LINEAR_ACTUATOR_H_
-    #define _CORE_CONTROLLERS_LINEAR_ACTUATOR_H_
+#include "Trajectory.h"
 
-#include "Motor.h"
-#include "../Base/Digital.h"
-#include "../Base/Analog.h"
-
-typedef struct
+TrajectoryGenerator* trajectoryInit(Vector3D* start, Vector3D* end, float32 duration)
 {
-    Motor* base;
-    uint8 pwmPin;
-    uint8 dirPin;
-    uint8 limitSwitchPin;
-    uint32 maxPosition;
-    uint32 currentPosition;
-} LinearActuator;
+    TrajectoryGenerator* tg;
 
-LinearActuator* linearActuatorInitialize(uint8 pwmPin, uint8 dirPin, uint8 limitSwitchPin);
-void LinearActuatorSetPosition(LinearActuator* actuator, uint32 position);
+    tg->start       = *start;
+    tg->end         = *end;
+    tg->duration    = duration;
+    tg->currentTime = 0.0f;
 
-#endif // _CORE_CONTROLLERS_LINEAR_ACTUATOR_H_
+    return tg;
+}
+
+void trajectoryUpdate(TrajectoryGenerator* tg, float32 dt, Vector3D* position, Vector3D* velocity)
+{
+    if(tg->currentTime >= tg->duration)
+    {
+        *position   = tg->end;
+        velocity->x = velocity->y = velocity->z = 0.0f;
+        return;
+    }
+
+    float t  = tg->currentTime / tg->duration;
+    float t2 = t * t;
+    float t3 = t2 * t;
+
+    // Cubic spline interpolation
+    float h0 = 2 * t3 - 3 * t2 + 1;
+    float h1 = -2 * t3 + 3 * t2;
+
+    position->x = h0 * tg->start.x + h1 * tg->end.x;
+    position->y = h0 * tg->start.y + h1 * tg->end.y;
+    position->z = h0 * tg->start.z + h1 * tg->end.z;
+
+    tg->currentTime += dt;
+}
+
+bool trajectoryComplete(TrajectoryGenerator* tg)
+{
+    return tg->currentTime >= tg->duration;
+}
+
+#endif // _CORE_CONTROLLER_TRAJECTORY_C_

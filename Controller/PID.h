@@ -26,24 +26,25 @@
 
 #pragma once
 
-#ifndef _CORE_CONTROLLERS_LINEAR_ACTUATOR_H_
-    #define _CORE_CONTROLLERS_LINEAR_ACTUATOR_H_
+#ifndef _CORE_CONTROLLER_PID_H_
+    #define _CORE_CONTROLLER_PID_H_
 
-#include "Motor.h"
-#include "../Base/Digital.h"
-#include "../Base/Analog.h"
+#include "../Base/Types.h"
 
 typedef struct
 {
-    Motor* base;
-    uint8 pwmPin;
-    uint8 dirPin;
-    uint8 limitSwitchPin;
-    uint32 maxPosition;
-    uint32 currentPosition;
-} LinearActuator;
+    float32 kp;
+    float32 ki;
+    float32 kd;
+    float32 setpoint;
+    float32 lastError;
+    float32 integral;
+    uint32 lastTime;
+} PIDController;
 
-LinearActuator* linearActuatorInitialize(uint8 pwmPin, uint8 dirPin, uint8 limitSwitchPin);
-void LinearActuatorSetPosition(LinearActuator* actuator, uint32 position);
+PIDController* PIDInitialize(float32 kp, float32 ki, float32 kd);
+void PIDSetTarget(PIDController* pid, float32 setpoint);
+float32 PIDCompute(PIDController* pid, float32 currentValue);
+void PIDReset(PIDController* pid);
 
-#endif // _CORE_CONTROLLERS_LINEAR_ACTUATOR_H_
+#endif // _CORE_CONTROLLER_PID_H_

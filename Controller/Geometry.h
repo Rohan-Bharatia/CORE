@@ -26,24 +26,43 @@
 
 #pragma once
 
-#ifndef _CORE_CONTROLLERS_LINEAR_ACTUATOR_H_
-    #define _CORE_CONTROLLERS_LINEAR_ACTUATOR_H_
+#ifndef _CORE_CONTROLLER_GEOMETRY_H_
+    #define _CORE_CONTROLLER_GEOMETRY_H_
 
-#include "Motor.h"
-#include "../Base/Digital.h"
-#include "../Base/Analog.h"
+#include "../Base/Types.h"
 
+// Common math constants
+#define PI 3.14159265358979323846
+#define E  2.71828182845904523536
+
+// 2D Vector structure
 typedef struct
 {
-    Motor* base;
-    uint8 pwmPin;
-    uint8 dirPin;
-    uint8 limitSwitchPin;
-    uint32 maxPosition;
-    uint32 currentPosition;
-} LinearActuator;
+    float32 x;
+    float32 y;
+} Vector2D;
 
-LinearActuator* linearActuatorInitialize(uint8 pwmPin, uint8 dirPin, uint8 limitSwitchPin);
-void LinearActuatorSetPosition(LinearActuator* actuator, uint32 position);
+// 3D Vector structure
+typedef struct
+{
+    float32 x;
+    float32 y;
+    float32 z;
+} Vector3D;
 
-#endif // _CORE_CONTROLLERS_LINEAR_ACTUATOR_H_
+// Quaternion structure for rotations
+typedef struct
+{
+    float32 w;
+    float32 x;
+    float32 y;
+    float32 z;
+} Vector4D, Quaternion;
+
+// Matrix structure for transformations
+typedef struct
+{
+    float32 data[4][4];
+} Matrix4x4;
+
+#endif // _CORE_CONTROLLER_GEOMETRY_H_

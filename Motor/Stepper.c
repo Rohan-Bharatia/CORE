@@ -69,7 +69,7 @@ static void stop(StepperMotor* motor)
     setSpeed(motor, 0);
 }
 
-StepperMotor* initializeStepperMotor(uint8 pin1, uint8 pin2, uint8 pin3, uint8 pin4, uint16 stepsPerRev)
+StepperMotor* stepperInitialize(uint8 pin1, uint8 pin2, uint8 pin3, uint8 pin4, uint16 stepsPerRev)
 {
     StepperMotor* motor;
 

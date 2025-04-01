@@ -90,7 +90,7 @@ static void stop(BLDCMotor* motor)
     setSpeed(motor, 0);
 }
 
-BLDCMotor* initializeDCMotor(uint8 phaseAHigh, uint8 phaseALow,
+BLDCMotor* BLDCInitialize(uint8 phaseAHigh, uint8 phaseALow,
                              uint8 phaseBHigh, uint8 phaseBLow,
                              uint8 phaseCHigh, uint8 phaseCLow)
 {

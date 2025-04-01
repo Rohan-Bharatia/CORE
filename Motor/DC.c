@@ -67,7 +67,7 @@ static void stop(DCMotor* motor)
     setSpeed(motor, 0);
 }
 
-DCMotor* initializeDCMotor(uint8 enable, uint8 in1, uint8 in2)
+DCMotor* DCInitialize(uint8 enable, uint8 in1, uint8 in2)
 {
     DCMotor* motor;
 

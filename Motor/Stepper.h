@@ -45,7 +45,7 @@ typedef struct
     int32 currentStep;
 } StepperMotor;
 
-StepperMotor* initializeStepperMotor(uint8 pin1, uint8 pin2, uint8 pin3, uint8 pin4, uint16 stepsPerRev);
+StepperMotor* stepperInitialize(uint8 pin1, uint8 pin2, uint8 pin3, uint8 pin4, uint16 stepsPerRev);
 void stepperSetPosition(StepperMotor* motor, int32 steps);
 
 #endif // _CORE_CONTROLLERS_STEPPER_H_

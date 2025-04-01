@@ -24,26 +24,34 @@
 
 #pragma endregion LICENSE
 
-#pragma once
+#ifndef _CORE_CONTROLLER_KALMAN_FILTER_C_
+    #define _CORE_CONTROLLER_KALMAN_FILTER_C_
 
-#ifndef _CORE_CONTROLLERS_LINEAR_ACTUATOR_H_
-    #define _CORE_CONTROLLERS_LINEAR_ACTUATOR_H_
+#include "KalmanFilter.h"
 
-#include "Motor.h"
-#include "../Base/Digital.h"
-#include "../Base/Analog.h"
-
-typedef struct
+KalmanFilter* initializeKalmanFilter(float32 state, float32 variance)
 {
-    Motor* base;
-    uint8 pwmPin;
-    uint8 dirPin;
-    uint8 limitSwitchPin;
-    uint32 maxPosition;
-    uint32 currentPosition;
-} LinearActuator;
+    KalmanFilter* filter;
 
-LinearActuator* linearActuatorInitialize(uint8 pwmPin, uint8 dirPin, uint8 limitSwitchPin);
-void LinearActuatorSetPosition(LinearActuator* actuator, uint32 position);
+    filter->state        = state;
+    filter->variance     = variance;
+    filter->processNoise = 0.001f; // Default value (can be modified)
+    filter->sensorNoise  = 0.01f; // Default value (can be modified)
 
-#endif // _CORE_CONTROLLERS_LINEAR_ACTUATOR_H_
+    return filter;
+}
+
+float32 updateKalmanFilter(KalmanFilter* filter, float32 measurement)
+{
+    // Prediction
+    filter->variance += filter->processNoise;
+
+    // Update
+    float32 kalmanGain = filter->variance / (filter->variance + filter->sensorNoise);
+    filter->state     += kalmanGain * (measurement - filter->state);
+    filter->variance  *= (1.0f - kalmanGain);
+
+    return filter->state;
+}
+
+#endif // _CORE_CONTROLLER_KALMAN_FILTER_C_

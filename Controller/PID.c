@@ -26,24 +26,56 @@
 
 #pragma once
 
-#ifndef _CORE_CONTROLLERS_LINEAR_ACTUATOR_H_
-    #define _CORE_CONTROLLERS_LINEAR_ACTUATOR_H_
+#ifndef _CORE_CONTROLLER_PID_C_
+    #define _CORE_CONTROLLER_PID_C_
 
-#include "Motor.h"
-#include "../Base/Digital.h"
-#include "../Base/Analog.h"
+#include "PID.h"
 
-typedef struct
+#include "../Base/Time.h"
+
+PIDController* PIDInitialize(float32 kp, float32 ki, float32 kd)
 {
-    Motor* base;
-    uint8 pwmPin;
-    uint8 dirPin;
-    uint8 limitSwitchPin;
-    uint32 maxPosition;
-    uint32 currentPosition;
-} LinearActuator;
+    PIDController* pid;
 
-LinearActuator* linearActuatorInitialize(uint8 pwmPin, uint8 dirPin, uint8 limitSwitchPin);
-void LinearActuatorSetPosition(LinearActuator* actuator, uint32 position);
+    pid->kp        = kp;
+    pid->ki        = ki;
+    pid->kd        = kd;
+    pid->setpoint  = 0;
+    pid->lastError = 0;
+    pid->integral  = 0;
+    pid->lastTime  = millis();
 
-#endif // _CORE_CONTROLLERS_LINEAR_ACTUATOR_H_
+    return pid;
+}
+
+void PIDSetTarget(PIDController* pid, float32 setpoint)
+{
+    pid->setpoint = setpoint;
+}
+
+float32 PIDCompute(PIDController* pid, float32 currentValue)
+{
+    uint32 now        = millis();
+    float32 deltaTime = (now - pid->lastTime) / 1000.0f;
+
+    float32 error      = pid->setpoint - currentValue;
+    pid->integral     += error * deltaTime;
+    float32 derivative = (error - pid->lastError) / deltaTime;
+    float32 output     = (pid->kp * error) +
+                       (pid->ki * pid->integral) +
+                       (pid->kd * derivative);
+
+    pid->lastError = error;
+    pid->lastTime  = now;
+
+    return output;
+}
+
+void PIDReset(PIDController* pid)
+{
+    pid->lastError = 0;
+    pid->integral  = 0;
+    pid->lastTime  = millis();
+}
+
+#endif // _CORE_CONTROLLER_PID_C_

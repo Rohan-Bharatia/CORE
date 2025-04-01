@@ -60,7 +60,7 @@ static void stop(LinearActuator* actuator)
     setSpeed(actuator, 0);
 }
 
-LinearActuator* initializeLinearActuator(uint8 pwmPin, uint8 dirPin, uint8 limitSwitchPin)
+LinearActuator* linearActuatorInitialize(uint8 pwmPin, uint8 dirPin, uint8 limitSwitchPin)
 {
     LinearActuator* actuator;
 
@@ -77,7 +77,7 @@ LinearActuator* initializeLinearActuator(uint8 pwmPin, uint8 dirPin, uint8 limit
     return actuator;
 }
 
-void setLinearActuatorPosition(LinearActuator* actuator, uint32 position)
+void LinearActuatorSetPosition(LinearActuator* actuator, uint32 position)
 {
     if(position > actuator->maxPosition)
         position = actuator->maxPosition;

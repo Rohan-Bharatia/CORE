@@ -26,24 +26,22 @@
 
 #pragma once
 
-#ifndef _CORE_CONTROLLERS_LINEAR_ACTUATOR_H_
-    #define _CORE_CONTROLLERS_LINEAR_ACTUATOR_H_
+#ifndef _CORE_CONTROLLER_TRAJECTORY_H_
+    #define _CORE_CONTROLLER_TRAJECTORY_H_
 
-#include "Motor.h"
-#include "../Base/Digital.h"
-#include "../Base/Analog.h"
+#include "../Base/Types.h"
+#include "Geometry.h"
 
 typedef struct
 {
-    Motor* base;
-    uint8 pwmPin;
-    uint8 dirPin;
-    uint8 limitSwitchPin;
-    uint32 maxPosition;
-    uint32 currentPosition;
-} LinearActuator;
+    Vector3D start;
+    Vector3D end;
+    float32 duration;
+    float32 currentTime;
+} TrajectoryGenerator;
 
-LinearActuator* linearActuatorInitialize(uint8 pwmPin, uint8 dirPin, uint8 limitSwitchPin);
-void LinearActuatorSetPosition(LinearActuator* actuator, uint32 position);
+TrajectoryGenerator* trajectoryInit(Vector3D* start, Vector3D* end, float32 duration);
+void trajectoryUpdate(TrajectoryGenerator* tg, float32 dt, Vector3D* currentPos, Vector3D* currentVel);
+bool trajectoryComplete(TrajectoryGenerator* tg);
 
-#endif // _CORE_CONTROLLERS_LINEAR_ACTUATOR_H_
+#endif // _CORE_CONTROLLER_TRAJECTORY_H_

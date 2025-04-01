@@ -42,8 +42,8 @@ typedef struct
     uint32 commutationStep;
 } BLDCMotor;
 
-BLDCMotor* initializeDCMotor(uint8 phaseAHigh, uint8 phaseALow,
-                             uint8 phaseBHigh, uint8 phaseBLow,
-                             uint8 phaseCHigh, uint8 phaseCLow);
+BLDCMotor* BLDCInitialize(uint8 phaseAHigh, uint8 phaseALow,
+                          uint8 phaseBHigh, uint8 phaseBLow,
+                          uint8 phaseCHigh, uint8 phaseCLow);
 
 #endif // _CORE_CONTROLLERS_DC_H_

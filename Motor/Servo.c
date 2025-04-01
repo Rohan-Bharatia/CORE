@@ -39,7 +39,7 @@ static void begin(ServoMotor* motor)
     motor->maxPulse     = 2400; // 180 degrees
     motor->currentAngle = 90;
 
-    setServoAngle(motor, motor->currentAngle);
+    servoSetAngle(motor, motor->currentAngle);
 }
 
 static void end(ServoMotor* motor)
@@ -57,7 +57,7 @@ static void stop(ServoMotor* motor)
     setSpeed(motor, 0);
 }
 
-ServoMotor* initializeServoMotor(uint8 pin)
+ServoMotor* servoInitialize(uint8 pin)
 {
     ServoMotor* motor;
 
@@ -70,7 +70,7 @@ ServoMotor* initializeServoMotor(uint8 pin)
     return motor;
 }
 
-void setServoAngle(ServoMotor* motor, int32 angle)
+void servoSetAngle(ServoMotor* motor, int32 angle)
 {
     if (angle < 0)
         angle = 0;

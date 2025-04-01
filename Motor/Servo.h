@@ -42,7 +42,7 @@ typedef struct
     int32 currentAngle;
 } ServoMotor;
 
-ServoMotor* initializeServoMotor(uint8 pin);
-void setServoAngle(ServoMotor* motor, int32 angle);
+ServoMotor* servoInitialize(uint8 pin);
+void servoSetAngle(ServoMotor* motor, int32 angle);
 
 #endif // _CORE_CONTROLLERS_SERVO_H_
