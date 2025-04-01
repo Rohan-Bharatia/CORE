@@ -26,36 +26,24 @@
 
 #pragma once
 
-#ifndef _CORE_H_
-    #define _CORE_H_
+#ifndef _CORE_CONTROLLERS_DC_H_
+    #define _CORE_CONTROLLERS_DC_H_
 
-// Base files
-#include "Base/Types.h"
-#include "Base/Analog.h"
-#include "Base/Digital.h"
-#include "Base/Time.h"
-#include "Base/Interrupts.h"
-#include "Base/Mempool.h"
-#include "Base/Serial.h"
-#include "Base/I2C.h"
-#include "Base/SPI.h"
-#include "Base/CAN.h"
-#include "Base/Server.h"
+#include "Motor.h"
+#include "../Base/Digital.h"
+#include "../Base/Analog.h"
 
-// Motor files
-#include "Motor/Motor.h"
-#include "Motor/DC.h"
-#include "Motor/Servo.h"
-#include "Motor/Stepper.h"
-#include "Motor/BLDC.h"
-#include "Motor/LinearActuator.h"
+typedef struct
+{
+    Motor* base;
+    uint8 phaseA[2]; // High/Low side
+    uint8 phaseB[2];
+    uint8 phaseC[2];
+    uint32 commutationStep;
+} BLDCMotor;
 
-// Version macros
-#define STRINGIFY(x) #x
-#define CORE_MAKE_VERSION(major, minor, patch) STRINGIFY(major) "." STRINGIFY(minor) "." STRINGIFY(patch)
-#define CORE_VERSION_MAJOR 1
-#define CORE_VERSION_MINOR 0
-#define CORE_VERSION_PATCH 0
-#define CORE_VERSION_STR CORE_MAKE_VERSION(CORE_VERSION_MAJOR, CORE_VERSION_MINOR, CORE_VERSION_PATCH)
+BLDCMotor* initializeDCMotor(uint8 phaseAHigh, uint8 phaseALow,
+                             uint8 phaseBHigh, uint8 phaseBLow,
+                             uint8 phaseCHigh, uint8 phaseCLow);
 
-#endif // _CORE_H_
+#endif // _CORE_CONTROLLERS_DC_H_
