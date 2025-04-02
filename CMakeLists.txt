@@ -7,11 +7,13 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Base)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Motor)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Controller)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Sensor)
 
 file(GLOB CORE_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Base/*.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Motor/*.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Controller/*.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Sensor/*.c
 )
 
 if (CORE_SOURCES)
@@ -21,7 +23,8 @@ if (CORE_SOURCES)
         ${CMAKE_CURRENT_SOURCE_DIR}/Base
         ${CMAKE_CURRENT_SOURCE_DIR}/Motor
         ${CMAKE_CURRENT_SOURCE_DIR}/Controller
+        ${CMAKE_CURRENT_SOURCE_DIR}/Sensor
     )
 
-    target_link_libraries(${PROJECT_NAME} PUBLIC Base Motor Controller)
+    target_link_libraries(${PROJECT_NAME} PUBLIC Base Motor Controller Sensor)
 endif()

@@ -58,6 +58,16 @@
 #include "Controller/Kinematics.h"
 #include "Controller/Trajectory.h"
 
+// Sensor files
+#include "Sensor/Sensor.h"
+#include "Sensor/IMU.h"
+#include "Sensor/Encoder.h"
+#include "Sensor/Distance.h"
+#include "Sensor/Force.h"
+#include "Sensor/Power.h"
+#include "Sensor/Color.h"
+#include "Sensor/GPS.h"
+
 // Version macros
 #define STRINGIFY(x) #x
 #define CORE_MAKE_VERSION(major, minor, patch) STRINGIFY(major) "." STRINGIFY(minor) "." STRINGIFY(patch)
