@@ -24,8 +24,6 @@
 
 #pragma endregion LICENSE
 
-#pragma once
-
 #ifndef _CORE_CONTROLLER_PID_C_
     #define _CORE_CONTROLLER_PID_C_
 

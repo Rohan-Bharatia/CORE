@@ -29,6 +29,9 @@
 
 #include "Color.h"
 
+#include "../Base/I2C.h"
+#include "../Base/Time.h"
+
 static void begin(Color* color)
 {
     i2cBegin();

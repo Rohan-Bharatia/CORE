@@ -26,31 +26,26 @@
 
 #pragma once
 
-#ifndef _CORE_BASE_DIGITAL_H_
-    #define _CORE_BASE_DIGITAL_H_
+#ifndef _CORE_NAVIGATION_SLAM_H_
+    #define _CORE_NAVIGATION_SLAM_H_
 
-#include "Types.h"
+#include "../Base/Types.h"
+#include "../Controller/Geometry.h"
 
-// Pin modes
-#define INPUT             0
-#define OUTPUT            1
-#define INPUT_PULLUP      2
-#define INPUT_PULLDOWN    3
-#define OUTPUT_OPEN_DRAIN 4
+#define MAX_LANDMARKS     100
+#define MEASUREMENT_NOISE 0.1f
+#define MOTION_NOISE      0.2f
 
-// Pin states
-#define LOW  0
-#define HIGH 1
+typedef struct
+{
+    Vector3D position;
+    Vector3D* landmarks;
+    uint32 landmarkCount;
+    float32* covariance;
+} SLAMState;
 
-#define GPIO_BASE 0x40000000
-#define GPIO_MODE (*(volatile uint32*)(GPIO_BASE + 0))
-#define GPIO_OUT  (*(volatile uint32*)(GPIO_BASE + 4))
-#define GPIO_IN   (*(volatile uint32*)(GPIO_BASE + 8))
+SLAMState* SLAMInitialize(void);
+void SLAMUpdate(SLAMState* state, Vector3D* measurements, uint32 measurementsCount);
+void SLAMAddLandmark(SLAMState* state, Vector3D landmark);
 
-void pinMode(uint8 pin, uint8 mode);
-void digitalWrite(uint8 pin, uint8 value);
-int32 digitalRead(uint8 pin);
-void digitalToggle(uint8 pin);
-float32 pulseIn(uint8 pin, uint8 mode);
-
-#endif // _CORE_BASE_DIGITAL_H_
+#endif // _CORE_NAVIGATION_SLAM_H_

@@ -26,31 +26,24 @@
 
 #pragma once
 
-#ifndef _CORE_BASE_DIGITAL_H_
-    #define _CORE_BASE_DIGITAL_H_
+#ifndef _CORE_NAVIGATION_PATH_PLANNING_H_
+    #define _CORE_NAVIGATION_PATH_PLANNING_H_
 
-#include "Types.h"
+#include "../Base/Types.h"
+#include "../Controller/Geometry.h"
 
-// Pin modes
-#define INPUT             0
-#define OUTPUT            1
-#define INPUT_PULLUP      2
-#define INPUT_PULLDOWN    3
-#define OUTPUT_OPEN_DRAIN 4
+#define MAX_PATH_LENGTH     100
+#define COLLISION_THRESHOLD 0.5f
 
-// Pin states
-#define LOW  0
-#define HIGH 1
+typedef struct
+{
+    Vector3D* waypoints;
+    uint32 waypointCount;
+    float32 pathLength;
+} Path;
 
-#define GPIO_BASE 0x40000000
-#define GPIO_MODE (*(volatile uint32*)(GPIO_BASE + 0))
-#define GPIO_OUT  (*(volatile uint32*)(GPIO_BASE + 4))
-#define GPIO_IN   (*(volatile uint32*)(GPIO_BASE + 8))
+Path* pathPlan(Vector3D* start, Vector3D* goal, Vector3D* obstacles, uint32 obstacleCount);
+bool pathIsClear(Path* path, Vector3D* obstacles, uint32 obstacleCount);
+void pathOptimize(Path* path);
 
-void pinMode(uint8 pin, uint8 mode);
-void digitalWrite(uint8 pin, uint8 value);
-int32 digitalRead(uint8 pin);
-void digitalToggle(uint8 pin);
-float32 pulseIn(uint8 pin, uint8 mode);
-
-#endif // _CORE_BASE_DIGITAL_H_
+#endif // _CORE_NAVIGATION_PATH_PLANNING_H_

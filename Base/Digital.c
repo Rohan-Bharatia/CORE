@@ -29,6 +29,8 @@
 
 #include "Digital.h"
 
+#include "Time.h"
+
 void pinMode(uint8 pin, uint8 mode)
 {
     uint32 shift = pin * 2;
@@ -52,6 +54,18 @@ int32 digitalRead(uint8 pin)
 void digitalToggle(uint8 pin)
 {
     GPIO_OUT ^= (1 << pin);
+}
+
+float32 pulseIn(uint8 pin, uint8 mode)
+{
+    uint32 start = micros();
+    while (digitalRead(pin) == mode)
+    {
+        if (micros() - start > 10000)
+            return 0;
+    }
+    uint32 end = micros();
+    return end - start;
 }
 
 #endif // _CORE_BASE_DIGITAL_C_

@@ -32,6 +32,7 @@
 #include "../Base/Serial.h"
 
 #include <stdlib.h>
+#include <string.h>
 
 static void parseGPGGA(GPS* gps, const char* sentence)
 {
@@ -95,13 +96,13 @@ static void parseGPRMC(GPS* gps, const char* sentence)
 
 static void begin(GPS* gps)
 {
-    SerialBegin(gps->serialPort, 9600); // Standard NMEA baud rate
+    serialBegin(9600); // Standard NMEA baud rate
     gps->bufferIndex = 0;
 }
 
 static void end(GPS* gps)
 {
-    SerialEnd();
+    serialEnd();
 }
 
 static void update(GPS* gps)
