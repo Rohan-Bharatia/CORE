@@ -68,6 +68,17 @@
 #include "Sensor/Color.h"
 #include "Sensor/GPS.h"
 
+// Navigation files
+#include "Navigation/PathPlanning.h"
+#include "Navigation/SLAM.h"
+#include "Navigation/Mapping.h"
+
+// Vision files
+#include "Vision/ImageProcessing.h"
+#include "Vision/ObjectDetection.h"
+#include "Vision/FeatureTracking.h"
+#include "Vision/Camera.h"
+
 // Version macros
 #define STRINGIFY(x) #x
 #define CORE_MAKE_VERSION(major, minor, patch) STRINGIFY(major) "." STRINGIFY(minor) "." STRINGIFY(patch)
@@ -75,5 +86,6 @@
 #define CORE_VERSION_MINOR 0
 #define CORE_VERSION_PATCH 0
 #define CORE_VERSION_STR CORE_MAKE_VERSION(CORE_VERSION_MAJOR, CORE_VERSION_MINOR, CORE_VERSION_PATCH)
+#define CORE_VERSION_INT ((CORE_VERSION_MAJOR << 16) | (CORE_VERSION_MINOR << 8) | (CORE_VERSION_PATCH))
 
 #endif // _CORE_H_
